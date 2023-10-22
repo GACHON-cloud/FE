@@ -85,6 +85,6 @@ export default function Onboarding() {
       <div style={{ width: 23, height: 23, left: 646, top: 703, position: 'absolute', border: '4px solid #666464' }}></div>
       <Typography style={{ width: 87, height: 47, left: 563, top: 697, position: 'absolute', textAlign: 'center', color: 'black', fontSize: 25, fontFamily: 'HeadlandOne', fontWeight: 400, textDecoration: 'underline', lineHeight: '40', wordWrap: 'break-word' }}>확인</Typography>
       <img style={{ width: 111, height: 107, left: 259, top: 220, position: 'absolute' }} src="https://via.placeholder.com/111x107" />
-    </Container>
+    </Container >
   );
 }
