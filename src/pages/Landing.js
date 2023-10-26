@@ -1,6 +1,16 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { Grid, Box, Stack } from "@mui/material"
+import {useNavigate} from 'react-router-dom'
+const Container= styled('Box')({
+    width: 1280,
+    height: 832,
+    position: "relative",
+    background: "white",
+    margin: "280px",
+})
+    
+    
 
 const Image = styled('img')({
   width: '100%',
@@ -17,7 +27,9 @@ const BoldText = styled('h1')({
 });
 
 export default function Landing() {
+    let navigate = useNavigate()
     return (
+        <Container>
         <Box sx={{ width:'100%', height:"100vh" }}>
             <Grid container spacing={0}>
                 <Grid item xs={5}>
@@ -29,7 +41,7 @@ export default function Landing() {
                             <BoldText>Welcome!</BoldText>
                         </Grid>
                         <div style={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap:"10px" }}>
-                            <img width="250px" src="/images/naver_login.png" alt="" />
+                            <img onClick={()=>{navigate('/signup')}}width="250px" src="/images/naver_login.png" alt="" />
                             <img width="250px" src="/images/kakao_login.png" alt="" />
                         </div>
                         <div style={{ color:'#888' }}>사용 중이신 SNS로 간편하게 로그인하세요!</div>
@@ -38,5 +50,6 @@ export default function Landing() {
                 </Grid>
             </Grid>
         </Box>
+        </Container>
     );
 }
