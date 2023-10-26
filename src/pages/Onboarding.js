@@ -2,6 +2,7 @@ import React from "react";
 import { Container, TextField, Button, Typography, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import CheckIcon from '@mui/icons-material/Check';
+import {useNavigate} from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -16,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
   titleContainer: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center", // 추가된 부분
-    textAlign: "center", // 추가된 부분
-    flexDirection: "column", // 추가된 부분
+    justifyContent: "center", 
+    textAlign: "center", 
+    flexDirection: "column", 
     
   },
   title: {
@@ -66,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Onboarding() {
+  let navigate = useNavigate();
   const classes = useStyles();
 
   return (
@@ -105,7 +107,7 @@ export default function Onboarding() {
           </Grid>
         </Grid>
         <Grid item>
-          <Typography
+          <Typography onClick={()=>{navigate('/main')}}
             style={{
               color: "black",
               fontSize: 25,

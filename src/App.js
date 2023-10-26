@@ -4,8 +4,9 @@ import './App.css';
 import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
 import Main from './pages/Main';
+import MyPage from './pages/Mypage';
 import Header from './components/Header';
-import {Routes, Route, BrowserRouter } from "react-router-dom"
+import {Routes, Route} from "react-router-dom"
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Landing/>}/>
         <Route path="/signup" element={<Onboarding/>}/>
         <Route path="/main" element={<><Header/><Main/></>}/>
+        <Route path="/mypage" element={<><Header/><MyPage/></>}/>
       </Routes>
     </div>
     
