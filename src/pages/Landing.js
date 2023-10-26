@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { Grid, Box, Stack } from "@mui/material"
 import {useNavigate} from 'react-router-dom'
+
 const Container= styled('Box')({
     width: 1280,
     height: 832,
@@ -10,8 +11,6 @@ const Container= styled('Box')({
     margin: "280px",
 })
     
-    
-
 const Image = styled('img')({
   width: '100%',
   height: '100%',

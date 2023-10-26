@@ -3,19 +3,22 @@ import { Reset } from 'styled-reset'
 import './App.css';
 import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
-import {Routes, Route, Link} from "react-router-dom"
+import Main from './pages/Main';
+import Header from './components/Header';
+import {Routes, Route, BrowserRouter } from "react-router-dom"
 
 
 function App() {
   return (
+    
     <div className="App">
-      <Reset />
       <Routes>
-      <Route path="/" element={<Landing/>}/>
-      <Route path="/signup" element={<Onboarding/>}/>
-
+        <Route path="/" element={<Landing/>}/>
+        <Route path="/signup" element={<Onboarding/>}/>
+        <Route path="/main" element={<><Header/><Main/></>}/>
       </Routes>
     </div>
+    
   );
 }
 
