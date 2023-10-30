@@ -6,7 +6,8 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {useNavigate} from 'react-router-dom'
+import ChatbotHeader from '../chatbot/ChatbotHeader';
+import Chatbot from './Chatbot';
 
 const Container = styled('Box')({
   width: 1280,
@@ -36,7 +37,6 @@ const Buttons = styled(ButtonGroup)({
   bottom: '25px',
   left: '33vw',
   borderRadius: '20px',
-  
 });
 
 const StyledButton = styled(Button)({
@@ -70,7 +70,16 @@ const GreyItem = styled(Item)({
 });
 
 export default function Main() {
-  let navigate = useNavigate()
+  const [showChat, setShowChat] = React.useState(false);
+
+  const handleChatbotClick = () => {
+    setShowChat(true);
+  };
+
+  const handleCloseChat = () => {
+    setShowChat(false);
+  };
+
   return (
     <Container>
       <Box sx={{ flexGrow: 1, margin:"50px 20px 0 20px" }}>
@@ -78,12 +87,18 @@ export default function Main() {
           <Grid xs={12}>
             <Item>
               <img src="/images/button1.png" alt="" />
-              <Box sx={{ display: 'flex', justifyContent: 'center', position: 'absolute', bottom: '25px', width: '100%' }}>  {/* 추가 */}
+              <Box sx={{ display: 'flex', justifyContent: 'center', position: 'absolute', bottom: '25px', width: '100%' }}>
                 <Buttons orientation="vertical">
-                  <StyledButton variant="contained">Guide<ChevronRightIcon></ChevronRightIcon></StyledButton>
-                  <StyledButton variant="contained">챗봇과 함께 우리집 찾기</StyledButton>
+                  <StyledButton variant="contained">Guide<ChevronRightIcon /></StyledButton>
+                  <StyledButton onClick={handleChatbotClick} variant="contained">챗봇과 함께 우리집 찾기</StyledButton>
                 </Buttons>
-              </Box>  
+              </Box>
+              {showChat && 
+                <div style={{ position: 'fixed', bottom: '0', right: '0', maxWidth: '300px', height: '400px', overflow: 'hidden', zIndex: 9999 }}>
+                  <ChatbotHeader onCloseClick={handleCloseChat} />
+                  <Chatbot />
+                </div>
+              }
             </Item>
           </Grid>
           <Grid xs={6}>

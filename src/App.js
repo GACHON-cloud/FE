@@ -7,6 +7,8 @@ import Main from './pages/Main';
 import MyPage from './pages/Mypage';
 import Header from './components/Header';
 import {Routes, Route} from "react-router-dom"
+import MyChatbot from './pages/Chatbot';
+
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/signup" element={<Onboarding/>}/>
         <Route path="/main" element={<><Header/><Main/></>}/>
         <Route path="/mypage" element={<><Header/><MyPage/></>}/>
+        <Route path="/chatbot" element={<MyChatbot/>}/>
+           
       </Routes>
     </div>
     
