@@ -1,32 +1,14 @@
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
+import ChangeNickname from '../components/ChangeNickname';
+import SignUp from '../components/SignUp';
 
-const useStyles = makeStyles((theme) => ({
-  boxshadow: 'none',
-  tableHead: {
-    fontWeight: 'bold',
-    paddingLeft: '35px',
-    fontSize: '30px',
-    height: '70px'
-  },
-  tableCell: {
-    paddingLeft: '35px',
-    fontSize: '22px'
-  },
-}));
+
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -65,7 +47,6 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function MyPage() {
-  const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState('panel1');
 
@@ -75,47 +56,25 @@ export default function MyPage() {
 
   return (
     <>
-    <h2>마이페이지</h2>
+     <Typography padding="20px" align="left">My Page</Typography>
     <div>
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>Collapsible Group Item #1</Typography>
+          <Typography>닉네임 변경</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+          <ChangeNickname/>
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Collapsible Group Item #2</Typography>
+          <Typography>탈퇴하기</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+        <SignUp />
         </AccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Collapsible Group Item #3</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+  
     </div>
     </>
   );
