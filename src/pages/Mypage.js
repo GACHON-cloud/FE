@@ -6,7 +6,7 @@ import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ChangeNickname from '../components/ChangeNickname';
-import SignUp from '../components/SignUp';
+import Unrigister from '../components/Unregister';
 
 
 
@@ -48,7 +48,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function MyPage() {
 
-  const [expanded, setExpanded] = React.useState('panel1');
+  const [expanded, setExpanded] = React.useState('');
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -71,7 +71,7 @@ export default function MyPage() {
           <Typography>탈퇴하기</Typography>
         </AccordionSummary>
         <AccordionDetails>
-        <SignUp />
+        <Unrigister />
         </AccordionDetails>
       </Accordion>
   

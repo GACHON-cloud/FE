@@ -8,13 +8,16 @@ import MyPage from './pages/Mypage';
 import Header from './components/Header';
 import {Routes, Route} from "react-router-dom"
 import MyChatbot from './pages/Chatbot';
+import { createGlobalStyle } from 'styled-components';
 
 
 
 function App() {
+  const GlobalStyles = createGlobalStyle``
   return (
     
     <div className="App">
+      <GlobalStyles/>
       <Routes>
         <Route path="/" element={<Landing/>}/>
         <Route path="/signup" element={<Onboarding/>}/>
@@ -23,7 +26,9 @@ function App() {
         <Route path="/chatbot" element={<MyChatbot/>}/>
            
       </Routes>
+      
     </div>
+    
     
   );
 }
