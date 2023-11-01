@@ -5,7 +5,7 @@ const config = {
   initialMessages: [createChatBotMessage(`Hello world`)],
   customComponents: {
    
-    header: () => <ChatbotHeader />,
+   header: (props) => <ChatbotHeader onCloseClick={props.onCloseClick} />,
     botAvatar: (props) => <img width='50px' src='/images/bot-avatar.png' {...props} />,
   },
   customStyles: {

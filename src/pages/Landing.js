@@ -40,8 +40,8 @@ export default function Landing() {
                             <BoldText>Welcome!</BoldText>
                         </Grid>
                         <div style={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap:"10px" }}>
-                            <img onClick={()=>{navigate('/signup')}} width="250px" src="/images/naver_login.png" alt="" />
-                            <img width="250px" src="/images/kakao_login.png" alt="" />
+                            <img onClick={() => navigate('/oauth2/authorization/naver')}  width="250px" src="/images/naver_login.png" alt="" />
+                            <img onClick={() => navigate('/oauth2/authorization/kakao')}  width="250px" src="/images/kakao_login.png" alt="" />
                         </div>
                         <div style={{ color:'#888' }}>사용 중이신 SNS로 간편하게 로그인하세요!</div>
                         <div style={{ textDecorationLine:'underline', fontWeight:'bold' }}>Admin</div>

@@ -25,11 +25,12 @@ const HeaderContainer = styled.div`
   }
 `;
 
-function ChatbotHeader({ onCloseClick }) {
+function ChatbotHeader(props) {
+ 
+
   return (
     <HeaderContainer>
-      <div className="chatbot-title">챗봇</div>
-      <CloseIcon className="close-icon" onClick={onCloseClick} />
+      <div className="chatbot-title">HomeMate</div>
     </HeaderContainer>
   );
 }

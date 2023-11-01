@@ -1,12 +1,10 @@
-import * as React from 'react';
+import  React,{useState} from 'react';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChatbotHeader from '../chatbot/ChatbotHeader';
 import Chatbot from './Chatbot';
 
 const Container = styled('Box')({
@@ -70,49 +68,55 @@ const GreyItem = styled(Item)({
 });
 
 export default function Main() {
-  const [showChat, setShowChat] = React.useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   const handleChatbotClick = () => {
-    setShowChat(true);
+    setShowChat(!showChat); // 챗봇 상태를 반전시킴
   };
-
-  const handleCloseChat = () => {
-    setShowChat(false);
-  };
-
+  
   return (
     <Container>
-      <Box sx={{ flexGrow: 1, margin:"50px 20px 0 20px" }}>
-        <Grid container spacing={4}>
-          <Grid xs={12}>
-            <Item>
-              <img src="/images/button1.png" alt="" />
-              <Box sx={{ display: 'flex', justifyContent: 'center', position: 'absolute', bottom: '25px', width: '100%' }}>
-                <Buttons orientation="vertical">
-                  <StyledButton variant="contained">Guide<ChevronRightIcon /></StyledButton>
-                  <StyledButton onClick={handleChatbotClick} variant="contained">챗봇과 함께 우리집 찾기</StyledButton>
-                </Buttons>
-              </Box>
-              {showChat && 
-                <div style={{ position: 'fixed', bottom: '0', right: '0', maxWidth: '300px', height: '400px', overflow: 'hidden', zIndex: 9999 }}>
-                  <ChatbotHeader onCloseClick={handleCloseChat} />
-                  <Chatbot />
+    <Box sx={{ flexGrow: 1, margin:"10px 20px 0 20px" }}>
+      <Grid container spacing={4}>
+        <Grid xs={12}>
+          <Item>
+            <img src="/images/button1.png" alt="" />
+            <Box sx={{ display: 'flex', justifyContent: 'center', position: 'absolute', bottom: '25px', width: '100%' }}>
+              <Buttons orientation="vertical">
+                <StyledButton variant="contained">Guide</StyledButton>
+                <StyledButton onClick={handleChatbotClick} variant="contained">챗봇과 함께 우리집 찾기</StyledButton>
+              </Buttons>
+            </Box>
+  
+            {showChat && (
+                <div
+                  style={{
+                    position: 'fixed',
+                    bottom: '0',
+                    right: '0',
+                    maxWidth: '300px',
+                    height: '400px',
+                    overflow: 'hidden',
+                    zIndex: 9999,
+                  }}
+                >
+                  <Chatbot onClose={() => setShowChat(false)} />
                 </div>
-              }
-            </Item>
-          </Grid>
-          <Grid xs={6}>
-            <GreyItem>
-              <img src="/images/button2.png" alt="" />
-            </GreyItem>
-          </Grid>
-          <Grid xs={6}>
-            <GreyItem>
-              <img src="/images/button3.png" alt="" />
-            </GreyItem>
-          </Grid>
+              )}
+          </Item>
         </Grid>
-      </Box>
-    </Container>
+        <Grid xs={6}>
+          <GreyItem>
+            <img src="/images/button2.png" alt="" />
+          </GreyItem>
+        </Grid>
+        <Grid xs={6}>
+          <GreyItem>
+            <img src="/images/button3.png" alt="" />
+          </GreyItem>
+        </Grid>
+      </Grid>
+    </Box>
+  </Container>
   );
 }
