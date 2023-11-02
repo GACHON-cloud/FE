@@ -9,6 +9,7 @@ import Header from './components/Header';
 import {Routes, Route} from "react-router-dom"
 import MyChatbot from './pages/Chatbot';
 import { createGlobalStyle } from 'styled-components';
+import Guide from './pages/Guide';
 
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/main" element={<><Header/><Main/></>}/>
         <Route path="/mypage" element={<><Header/><MyPage/></>}/>
         <Route path="/chatbot" element={<MyChatbot/>}/>
+        <Route path="/guide" element={<><Header/><Guide/></>}/>
            
       </Routes>
       
