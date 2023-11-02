@@ -79,7 +79,7 @@ export default function Unregister() {
           </Box>
         </Box>
         
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mt: 6 }} />
       </Container>
     </ThemeProvider>
   );
