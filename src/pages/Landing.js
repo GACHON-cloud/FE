@@ -26,7 +26,7 @@ const BoldText = styled('h1')({
 });
 
 export default function Landing() {
-    let navigate = useNavigate()
+   
     return (
         <Container>
         <Box sx={{ width:'100%', height:"100vh" }}>

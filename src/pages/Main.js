@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Chatbot from './Chatbot';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled('Box')({
   width: 1280,
@@ -68,6 +69,8 @@ const GreyItem = styled(Item)({
 });
 
 export default function Main() {
+  let navigate = useNavigate()
+
   const [showChat, setShowChat] = useState(false);
 
   const handleChatbotClick = () => {
@@ -83,7 +86,7 @@ export default function Main() {
             <img src="/images/button1.png" alt="" />
             <Box sx={{ display: 'flex', justifyContent: 'center', position: 'absolute', bottom: '25px', width: '100%' }}>
               <Buttons orientation="vertical">
-                <StyledButton variant="contained">Guide</StyledButton>
+                <StyledButton onClick={()=>{navigate('/guide')}} variant="contained">Guide</StyledButton>
                 <StyledButton onClick={handleChatbotClick} variant="contained">챗봇과 함께 우리집 찾기</StyledButton>
               </Buttons>
             </Box>
