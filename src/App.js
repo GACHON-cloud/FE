@@ -10,19 +10,11 @@ import {Routes, Route} from "react-router-dom"
 import MyChatbot from './pages/Chatbot';
 import { createGlobalStyle } from 'styled-components';
 import Guide from './pages/Guide';
-import axios from 'axios';
+
 
 
 function App() {
-  useEffect(() => {
-    axios.get('http://ceprj.gachon.ac.kr:60006/')
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
+  
   const GlobalStyles = createGlobalStyle``
   return (
     

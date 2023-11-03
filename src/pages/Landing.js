@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Grid, Box, Stack } from "@mui/material"
-import {useNavigate} from 'react-router-dom'
+import axios from 'axios';
 
 const Container= styled('Box')({
     width: 1280,
@@ -26,6 +26,15 @@ const BoldText = styled('h1')({
 });
 
 export default function Landing() {
+    useEffect(() => {
+        axios.get('http://ceprj.gachon.ac.kr:60006/')
+        .then(response => {
+        console.log(response.data);
+        })
+        .catch(error => {
+        console.error(error);
+        });
+        }, []);
    
     return (
         <Container>
