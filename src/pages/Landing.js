@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Grid, Box, Stack } from "@mui/material"
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom'
+
 
 const Container= styled('Box')({
     width: 1280,
@@ -26,6 +28,9 @@ const BoldText = styled('h1')({
 });
 
 export default function Landing() {
+
+    let navigate = useNavigate();
+    
     useEffect(() => {
         axios.get('http://ceprj.gachon.ac.kr:60006/')
         .then(response => {
@@ -50,13 +55,15 @@ export default function Landing() {
                         </Grid>
                         <div style={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap:"10px" }}>
                         <img
-                            onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60006/oauth2/authorization/naver'}
+                            onClick={()=>{navigate('/signup')}}
+                            // onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60006/oauth2/authorization/naver'}
                             width="250px"
                             src="/images/naver_login.png"
                             alt=""
                             />
                             <img 
-                            onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60006/oauth2/authorization/kakao'} 
+                             onClick={()=>{navigate('/signup')}}
+                            // onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60006/oauth2/authorization/kakao'} 
                             width="250px" 
                             src="/images/kakao_login.png" 
                             alt="" 
