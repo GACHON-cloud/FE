@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Reset } from 'styled-reset'
 import './App.css';
 import Landing from './pages/Landing';
@@ -11,14 +11,16 @@ import MyChatbot from './pages/Chatbot';
 import { createGlobalStyle } from 'styled-components';
 import Guide from './pages/Guide';
 
-
+const serverURL ="http://ceprj.gachon.ac.kr:60006"
 
 function App() {
+  
   
   const GlobalStyles = createGlobalStyle``
   return (
     
     <div className="App">
+      <Reset/>
       <GlobalStyles/>
       <Routes>
         <Route path="/" element={<Landing/>}/>
