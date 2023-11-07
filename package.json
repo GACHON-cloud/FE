@@ -27,7 +27,7 @@
     "styled-reset": "^4.5.1",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://localhost:60006",
+  "proxy": "http://ceprj.gachon.ac.kr:60006/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -53,6 +53,7 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "webpack-cli": "^5.1.4"
   }
 }

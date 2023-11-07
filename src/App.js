@@ -10,6 +10,7 @@ import {Routes, Route} from "react-router-dom"
 import MyChatbot from './pages/Chatbot';
 import { createGlobalStyle } from 'styled-components';
 import Guide from './pages/Guide';
+import axios from 'axios';
 
 const serverURL ="http://ceprj.gachon.ac.kr:60006"
 
@@ -17,25 +18,39 @@ function App() {
   
   
   const GlobalStyles = createGlobalStyle``
-  return (
+
+  const [hello, setHello] = useState('')
+
+    useEffect(() => {
+        axios.get('/api/hello')
+        .then(response => setHello(response.data))
+        .catch(error => console.log(error))
+    }, []);
+
+    return (
+        <div>
+            백엔드에서 가져온 데이터입니다 : {hello}
+        </div>
+    );
+  // return (
     
-    <div className="App">
-      <Reset/>
-      <GlobalStyles/>
-      <Routes>
-        <Route path="/" element={<Landing/>}/>
-        <Route path="/signup" element={<Onboarding/>}/>
-        <Route path="/main" element={<><Header/><Main/></>}/>
-        <Route path="/mypage" element={<><Header/><MyPage/></>}/>
-        <Route path="/chatbot" element={<MyChatbot/>}/>
-        <Route path="/guide" element={<><Header/><Guide/></>}/>
+  //   <div className="App">
+  //     <Reset/>
+  //     <GlobalStyles/>
+  //     <Routes>
+  //       <Route path="/" element={<Landing/>}/>
+  //       <Route path="/signup" element={<Onboarding/>}/>
+  //       <Route path="/main" element={<><Header/><Main/></>}/>
+  //       <Route path="/mypage" element={<><Header/><MyPage/></>}/>
+  //       <Route path="/chatbot" element={<MyChatbot/>}/>
+  //       <Route path="/guide" element={<><Header/><Guide/></>}/>
            
-      </Routes>
+  //     </Routes>
       
-    </div>
+  //   </div>
     
     
-  );
+  // );
 }
 
 export default App;
