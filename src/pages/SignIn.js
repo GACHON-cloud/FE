@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -22,12 +23,29 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
+
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const navigate =useNavigate();
+  const handleConfirmClick = async () => {
+    try {
+      const response = await axios.get('http://ceprj.gachon.ac.kr:60014/signin'); // 서버 URL을 입력해주세요.
+      
+      // 토큰과 userid를 localStorage에 저장.
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.userId);
+
+      // 토큰과 userid를 콘솔에 출력
+      console.log('Token:', response.data.token);
+      console.log('User ID:', response.data.userId);
+
+      navigate("/main");
+    } catch (error) {
+      console.error('Failed to fetch token and user id:', error);
+    }
+  }
 
 
   return (
@@ -36,20 +54,23 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            marginTop: "150px",
+            justifyContent: 'center', // 세로로 가운데 정렬s
+            gap: 5, // 각 요소 사이의 간격
           }}
+          
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#5784F7' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
          
-            로그인 되었습니다.
+            로그인 되었습니다.<br/><br/>
             확인 버튼을 누르면 메인 페이지로 이동합니다.            
             <Button
             onClick={() => navigate("/main")}

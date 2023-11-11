@@ -55,15 +55,13 @@ export default function Landing() {
                         </Grid>
                         <div style={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap:"10px" }}>
                         <img
-                            onClick={()=>{navigate('/signup')}}
-                            // onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60006/oauth2/authorization/naver'}
+                            onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60006/oauth2/authorization/naver'}
                             width="250px"
                             src="/images/naver_login.png"
                             alt=""
                             />
                             <img 
-                             onClick={()=>{navigate('/signup')}}
-                            // onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60006/oauth2/authorization/kakao'} 
+                            onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60006/oauth2/authorization/kakao'} 
                             width="250px" 
                             src="/images/kakao_login.png" 
                             alt="" 
