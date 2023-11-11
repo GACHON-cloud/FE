@@ -30,25 +30,26 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const navigate =useNavigate();
   useEffect(() => {
-    const fetchTokenAndUserId = async () => {
-      try {
-        const response = await axios.get('http://ceprj.gachon.ac.kr:60014/signin'); // 서버 URL을 입력해주세요.
+    // URL의 쿼리 파라미터 가져오기
+    const params = new URLSearchParams(window.location.search);
 
-        // 토큰과 userid를 localStorage에 저장.
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userId', response.data.userId);
+    // 토큰과 사용자 ID 가져오기
+    const token = params.get('token');
+    const userId = params.get('userId');
 
-        // 토큰과 userid를 콘솔에 출력
-        console.log('Token:', response.data.token);
-        console.log('User ID:', response.data.userId);
+    if (token && userId) {
+      // 토큰과 사용자 ID를 로컬 저장소에 저장
+      localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId);
 
-        
-      } catch (error) {
-        console.error('Failed to fetch token and user id:', error.response ? error.response.data : error);
-      }
+      // 토큰과 사용자 ID를 콘솔에 출력
+      console.log('Token:', token);
+      console.log('User ID:', userId);
+
+      navigate("/main");
+    } else {
+      console.error('Token or user ID not found in URL');
     }
-
-    fetchTokenAndUserId();
   }, [navigate]);
 
   return (
