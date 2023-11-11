@@ -31,7 +31,7 @@ export default function SignIn() {
   const navigate =useNavigate();
   const handleConfirmClick = async () => {
     try {
-      const response = await axios.get('http://ceprj.gachon.ac.kr:60014/signin'); // 서버 URL을 입력해주세요.
+      const response = await axios.get('http://ceprj.gachon.ac.kr:60006/signin'); 
       
       // 토큰과 userid를 localStorage에 저장.
       localStorage.setItem('token', response.data.token);
