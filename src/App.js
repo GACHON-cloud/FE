@@ -10,7 +10,7 @@ import {Routes, Route} from "react-router-dom"
 import MyChatbot from './pages/Chatbot';
 import { createGlobalStyle } from 'styled-components';
 import Guide from './pages/Guide';
-import axios from 'axios';
+import SignIn from './pages/SignIn';
 import RealityList from "./pages/RealityList"
 
 
@@ -21,19 +21,6 @@ function App() {
   
   const GlobalStyles = createGlobalStyle``
 
-  // const [hello, setHello] = useState('')
-
-  //   useEffect(() => {
-  //       axios.get('/api/hello')
-  //       .then(response => setHello(response.data))
-  //       .catch(error => console.log(error))
-  //   }, []);
-
-  //   return (
-  //       <div>
-  //           백엔드에서 가져온 데이터입니다 : {hello}
-  //       </div>
-  //   );
   return (
     
     <div className="App">
@@ -47,6 +34,7 @@ function App() {
         <Route path="/chatbot" element={<MyChatbot/>}/>
         <Route path="/guide" element={<><Header/><Guide/></>}/>
         <Route path="/reality-list" element={<><Header/><RealityList/></>}/>
+        <Route path='/signin' element={<SignIn/>}/>
       </Routes>
       
     </div>

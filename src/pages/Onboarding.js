@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, TextField, Button, Typography, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import CheckIcon from '@mui/icons-material/Check';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+
+
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -11,16 +18,13 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     background: "white",
     margin: "280px",
-    
-    
   },
   titleContainer: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center", 
-    textAlign: "center", 
-    flexDirection: "column", 
-    
+    justifyContent: "center",
+    textAlign: "center",
+    flexDirection: "column",
   },
   title: {
     color: "#3E4C88",
@@ -40,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
     height: 42,
     border: "1px solid #A6A6A6",
     borderRadius: 4,
-   
   },
   errorText: {
     color: "#F03F40",
@@ -62,17 +65,62 @@ const useStyles = makeStyles((theme) => ({
     background: "#EEF2FF",
     borderRadius: 4,
     border: "1px solid #A6A6A6",
-    
   },
 }));
 
 export default function Onboarding() {
-  let navigate = useNavigate();
-  const classes = useStyles();
 
+  const navigate = useNavigate();
+  const classes = useStyles();
+  const [nickname, setNickname] = useState("");
+  const [error, setError] = useState("");
+  const location = useLocation();
+
+                                                                 
+  const query = new URLSearchParams(location.search);
+  const accessToken = query.get('accessToken');
+
+  useEffect(() => {
+    // URL에서 code와 state 파라미터 읽기
+
+    console.log("useEffect has been called");
+    const urlParams = new URLSearchParams(location.search);
+    const code = urlParams.get('code');
+    const state = urlParams.get('state');
+
+
+    console.log("code: ", code, ", state: ", state);
+
+    if (code && state) {
+      navigate('/main');
+    }
+  }, [navigate]);
+  
+  const updateNickname = async (nickName) => {
+    try {
+      const response = await axios({
+        method: 'post', 
+        url: 'http://ceprj.gachon.ac.kr:60014/user/sign-up',
+        headers: { Authorization: `Bearer ${accessToken}` }, 
+        data: { nickName }, 
+      });
+  
+      // 중복 오류 메시지가 없으면 /main으로 이동
+      navigate('/main');
+    }  catch (error) {
+      if (error.response) {
+        if (error.response.status === 500) {
+          setError("중복된 닉네임입니다.");
+        } else if (error.response.data.message === 'sign-up error') {
+          setError("회원 가입에 실패했습니다. 다시 시도해 주세요.");
+        }
+      } else {
+        console.error('닉네임 업데이트에 실패했습니다.', error);
+      }
+    }
+  };
   return (
     <Container className={classes.container}>
-      {/* 로고 및 안내글 */}
       <Grid container direction="column" spacing={12}>
         <Grid item className={classes.titleContainer}>
           <img
@@ -80,45 +128,41 @@ export default function Onboarding() {
             src="/images/logo.png"
             alt="Logo"
           />
-          <Typography style={{ fontSize: 30}} className={classes.title}>
-          <span style={{ fontWeight: "bold" }}> HomeMate</span><span style={{ color: "black"}}>에서 사용할 <br/> 닉네임을 입력해주세요!</span>
+          <Typography style={{ fontSize: 30 }} className={classes.title}>
+            <span style={{ fontWeight: "bold" }}> HomeMate</span><span style={{ color: "black" }}>에서 사용할 <br /> 닉네임을 입력해주세요!</span>
+            
           </Typography>
         </Grid>
-        {/* 텍스트박스 */}
-        <Grid item container alignItems="stretch" justifyContent= "center" textAlign= "center" spacing={3}>
-          <Grid item>
-          <TextField
-            style={{ fontSize: 30 }}
-            className={classes.nicknameInput}
-            label="닉네임을 입력해주세요"
-            variant="outlined"
-            id="outlined-helperText"
-            helperText="한글, 숫자 포함 12자 이내"
-          />
-          </Grid>
-          <Grid item>
+        <Grid item container alignItems="stretch" justifyContent="center" textAlign="center" spacing={3}>
+  <Grid item>
+    <TextField
+      style={{ fontSize: 30 }}
+      className={classes.nicknameInput}
+      label="닉네임을 입력해주세요"
+      variant="outlined"
+      id="outlined-helperText"
+      type="text"
+      value={nickname}
+      onChange={(e) => setNickname(e.target.value)}
+    />
+  </Grid>
+</Grid>
+<Grid item>
+  {error && <Typography color="error">{error}</Typography>}
+</Grid>
+
+       
+        <Grid item>
           <Button
+         onClick={() => { updateNickname(nickname);
+          
+        }}
             className={classes.button}
             variant="contained"
             color="primary"
           >
-            중복 확인
+            확인<CheckIcon />
           </Button>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Typography onClick={()=>{navigate('/main')}}
-            style={{
-              color: "black",
-              fontSize: 25,
-              fontFamily: "HeadlandOne",
-              fontWeight: 400,
-              textDecoration: "underline",
-             
-            }}
-          >
-            확인<CheckIcon/>
-          </Typography>
         </Grid>
       </Grid>
     </Container>
