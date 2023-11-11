@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Grid, Box, Stack } from "@mui/material"
-import axios from 'axios';
-import {useNavigate} from 'react-router-dom'
 
 
 const Container= styled('Box')({
@@ -28,18 +26,6 @@ const BoldText = styled('h1')({
 });
 
 export default function Landing() {
-
-    let navigate = useNavigate();
-    
-    useEffect(() => {
-        axios.get('http://ceprj.gachon.ac.kr:60006/')
-        .then(response => {
-        console.log(response.data);
-        })
-        .catch(error => {
-        console.error(error);
-        });
-        }, []);
    
     return (
         <Container>
@@ -51,28 +37,35 @@ export default function Landing() {
                 <Grid item xs={7}>
                     <Stack spacing={10}>
                         <Grid container direction="column">
-                            <BoldText>Welcome!</BoldText>
+                            <BoldText>Welcome1!</BoldText>
                         </Grid>
                         <div style={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap:"10px" }}>
                         <img
-                            onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60006/oauth2/authorization/naver'}
+                            onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60014/oauth2/authorization/naver'}
                             width="250px"
                             src="/images/naver_login.png"
                             alt=""
                             />
-                            <img 
-                            onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60006/oauth2/authorization/kakao'} 
-                            width="250px" 
-                            src="/images/kakao_login.png" 
-                            alt="" 
-                            />
+                            <img
+                            onClick={() => {
+                                window.location.href = 'http://ceprj.gachon.ac.kr:60014/oauth2/authorization/kakao';
+                                
+                            }}
+                            width="250px"
+                            src="/images/kakao_login.png"
+                            alt=""
+/>
                         </div>
                         <div style={{ color:'#888' }}>사용 중이신 SNS로 간편하게 로그인하세요!</div>
-                        <div style={{ textDecorationLine:'underline', fontWeight:'bold' }}>Admin</div>
+                        <div onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60014/admin/form'} style={{ textDecorationLine:'underline', fontWeight:'bold' }}>Admin</div> 
+                            
+
+
+
                     </Stack>
                 </Grid>
             </Grid>
-        </Box>dnd
+        </Box>
         </Container>
     );
 }
