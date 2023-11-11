@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -29,24 +29,27 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const navigate =useNavigate();
-  const handleConfirmClick = async () => {
-    try {
-      const response = await axios.get('http://ceprj.gachon.ac.kr:60006/signin'); 
-      
-      // 토큰과 userid를 localStorage에 저장.
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userId', response.data.userId);
+  useEffect(() => {
+    const fetchTokenAndUserId = async () => {
+      try {
+        const response = await axios.get('http://ceprj.gachon.ac.kr:60014/signin'); // 서버 URL을 입력해주세요.
 
-      // 토큰과 userid를 콘솔에 출력
-      console.log('Token:', response.data.token);
-      console.log('User ID:', response.data.userId);
+        // 토큰과 userid를 localStorage에 저장.
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userId', response.data.userId);
 
-      navigate("/main");
-    } catch (error) {
-      console.error('Failed to fetch token and user id:', error);
+        // 토큰과 userid를 콘솔에 출력
+        console.log('Token:', response.data.token);
+        console.log('User ID:', response.data.userId);
+
+        
+      } catch (error) {
+        console.error('Failed to fetch token and user id:', error);
+      }
     }
-  }
 
+    fetchTokenAndUserId();
+  }, [navigate]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -73,7 +76,7 @@ export default function SignIn() {
             로그인 되었습니다.<br/><br/>
             확인 버튼을 누르면 메인 페이지로 이동합니다.            
             <Button
-            onClick={handleConfirmClick}
+            onClick={() => navigate("/main")}
               type="submit"
               fullWidth
               variant="contained"
