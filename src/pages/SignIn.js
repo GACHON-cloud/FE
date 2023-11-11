@@ -73,7 +73,7 @@ export default function SignIn() {
             로그인 되었습니다.<br/><br/>
             확인 버튼을 누르면 메인 페이지로 이동합니다.            
             <Button
-            onClick={() => navigate("/main")}
+            onClick={handleConfirmClick}
               type="submit"
               fullWidth
               variant="contained"
