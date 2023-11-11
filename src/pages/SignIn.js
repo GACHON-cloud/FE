@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -28,16 +28,19 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+
   const navigate =useNavigate();
+  const location = useLocation();
+
+  const query = new URLSearchParams(location.search);
+  const token = query.get('accessToken');
+  const userId = query.get('userId');
+
   useEffect(() => {
     // URL의 쿼리 파라미터 가져오기
-    const params = new URLSearchParams(window.location.search);
+  
 
-    // 토큰과 사용자 ID 가져오기
-    const token = params.get('token');
-    const userId = params.get('userId');
-
-    if (token && userId) {
+    
       // 토큰과 사용자 ID를 로컬 저장소에 저장
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
@@ -46,11 +49,8 @@ export default function SignIn() {
       console.log('Token:', token);
       console.log('User ID:', userId);
 
-      navigate("/main");
-    } else {
-      console.error('Token or user ID not found in URL');
-    }
-  }, [navigate]);
+  
+    } );
 
   return (
     <ThemeProvider theme={defaultTheme}>

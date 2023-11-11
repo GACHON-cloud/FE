@@ -80,21 +80,6 @@ export default function Onboarding() {
   const query = new URLSearchParams(location.search);
   const accessToken = query.get('accessToken');
 
-  useEffect(() => {
-    // URL에서 code와 state 파라미터 읽기
-
-    console.log("useEffect has been called");
-    const urlParams = new URLSearchParams(location.search);
-    const code = urlParams.get('code');
-    const state = urlParams.get('state');
-
-
-    console.log("code: ", code, ", state: ", state);
-
-    if (code && state) {
-      navigate('/main');
-    }
-  }, [navigate]);
   
   const updateNickname = async (nickName) => {
     try {
