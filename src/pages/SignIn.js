@@ -44,7 +44,7 @@ export default function SignIn() {
 
         
       } catch (error) {
-        console.error('Failed to fetch token and user id:', error);
+        console.error('Failed to fetch token and user id:', error.response ? error.response.data : error);
       }
     }
 
