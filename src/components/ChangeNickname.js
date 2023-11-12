@@ -60,14 +60,57 @@ const defaultTheme = createTheme();
 
 function ChangeNickname() {
   const classes = useStyles();
+  const [nickName, setNickname] = React.useState('');
+  const [error, setError] = React.useState(null);
+  const [checkCompleted, setCheckCompleted] = React.useState(false);
+  const [message, setMessage] = React.useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      nickname: data.get('nickname'),
+      nickName: data.get('nickName'),
     });
   };
+
+
+ const handleCheckNickname = async () => {
+    try {
+      const response = await fetch('http://ceprj.gachon.ac.kr:60014/user/update', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: localStorage.getItem('userId'),
+          nickName: nickName,
+        }),
+      });
+
+      if (response.status === 409) {
+        setError('중복된 닉네임입니다.');
+        setMessage(null);
+        setCheckCompleted(false);
+        return;
+      }
+
+      if (response.ok) {
+        setError(null);
+        setMessage('사용 가능한 닉네임입니다.');
+        setCheckCompleted(true);
+        return;
+      }
+
+      setError('닉네임 중복 확인 요청 실패');
+      setMessage(null);
+      setCheckCompleted(false);
+    } catch (error) {
+      setError('닉네임 중복 확인 요청 중 에러 발생');
+      setMessage(null);
+      setCheckCompleted(false);
+    }
+  };
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -95,16 +138,22 @@ function ChangeNickname() {
                 label="닉네임을 입력해주세요"
                 variant="outlined"
                 id="outlined-helperText"
-                helperText="	&#42; 한글/숫자를 사용할 수 있습니다. (최대 12자, 혼용 가능)
-                &#42; 중복되지 않은 닉네임으로 변경해주세요"
-
-              />
+                value={nickName}
+              onChange={(e) => {
+                setNickname(e.target.value);
+                setError(null);
+                setMessage(null);
+                setCheckCompleted(false); // 닉네임을 변경하면 중복 확인 완료 상태를 초기화
+              }}
+            />
+            {error && <div className={classes.errorText}>{error}</div>}
+            {message && <div className={classes.helperText}>{message}</div>}
             </Grid>
             <Grid item xs={4}>
               <Button
                 className={classes.button}
                 variant="contained"
-                color="primary"
+                onClick={handleCheckNickname}
               >
                 중복 확인
               </Button>
@@ -116,6 +165,7 @@ function ChangeNickname() {
               type="submit"
               fullWidth
               variant="contained"
+              disabled={!checkCompleted}
               sx={{ mt: 3, mb: 2 }}
             >
               확인
