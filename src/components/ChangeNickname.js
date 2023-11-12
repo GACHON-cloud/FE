@@ -136,7 +136,7 @@ function ChangeNickname() {
                 id="outlined-helperText"
                 value={nickName}
                 error={!!error} // error 상태를 설정합니다
-                helperText={error || " 중복되지 않은 닉네임으로 변경해주세요"} // helperText를 설정합니다
+                helperText={error || message || " 중복되지 않은 닉네임으로 변경해주세요"} 
                 onChange={(e) => {
                   setNickname(e.target.value);
                   setError(null);
