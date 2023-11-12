@@ -84,10 +84,9 @@ function ChangeNickname() {
     console.log('nickName:', nickName);
   
     try {
-      const response = await axios.patch('http://ceprj.gachon.ac.kr:60014/user/update', {
-        userId: {userId},
-        nickName: {nickName},
-      });
+      const response = await axios.patch(`http://ceprj.gachon.ac.kr:60014/user/update?userId=${userId}`, {
+  nickName: nickName,
+});
   
       if (response.status === 409) {
         setError('중복된 닉네임입니다.');
@@ -96,7 +95,7 @@ function ChangeNickname() {
         return;
       }
   
-      if (response.status === 200) { // axios에서는 ok 대신 status를 사용합니다
+      if (response.status === 200) { 
         setError(null);
         setMessage('사용 가능한 닉네임입니다.');
         setCheckCompleted(true);

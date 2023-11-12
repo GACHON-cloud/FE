@@ -37,11 +37,8 @@ export default function Unregister() {
   
     try {
       const userId = localStorage.getItem('userId');
-      const response = await axios.delete('http://ceprj.gachon.ac.kr:60014/user/delete', {
-        headers: {
-          'Content-Type': 'application/json',
-          'userId': userId // userId를 헤더에 포함시킵니다
-        },
+      const response = await axios.delete(`http://ceprj.gachon.ac.kr:60014/user/delete?userId=${userId}`, {
+      
       });
   
       if (response.status === 200) {
@@ -50,7 +47,7 @@ export default function Unregister() {
         console.error('회원 탈퇴 요청 실패:', response.data);
       }
     } catch (error) {
-      console.error('회원 탈퇴 요청 중 에러 발생:', error);
+      console.error('회원 탈퇴 요청 실패:', error);
     }
   };
   
