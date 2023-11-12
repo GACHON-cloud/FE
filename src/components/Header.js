@@ -3,8 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -30,8 +28,7 @@ export default function Header() {
     const handleLogout = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
-      setLogoutSuccess(true); // 로그아웃 성공 시 모달 표시
-    
+      navigate('/');
     };
 
 
@@ -61,34 +58,6 @@ export default function Header() {
        
         </Toolbar>
       </AppBar>
-      <Modal
-  open={logoutSuccess}
-  onClose={handleClose}
-  onExited={() => navigate('/')}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box sx={{ 
-    position: 'absolute', 
-    top: '50%', 
-    left: '50%', 
-    transform: 'translate(-50%, -50%)', 
-    width: 400, 
-    bgcolor: 'background.paper', 
-    border: '2px solid #000',
-    boxShadow: 24, 
-    p: 4,
-  }}>
-    <Typography id="modal-modal-title" variant="h6" component="h2">
-      로그아웃 되었습니다.
-    </Typography>
-    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      
-    </Typography>
-    <Button onClick={handleClose}>확인</Button> {/* 확인 버튼 추가 */}
-  </Box>
-</Modal>
-
     </Box>
   );
 }
