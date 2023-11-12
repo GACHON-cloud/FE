@@ -28,7 +28,7 @@ function App() {
       <GlobalStyles/>
       <Routes>
         <Route path="/" element={<Landing/>}/>
-        <Route path="/signup" element={<Onboarding/>}/>
+        <Route path="//login/oauth2/code/user/sign-up" element={<Onboarding/>}/>
         <Route path="/main" element={<><Header/><Main/></>}/>
         <Route path="/mypage" element={<><Header/><MyPage/></>}/>
         <Route path="/chatbot" element={<MyChatbot/>}/>
