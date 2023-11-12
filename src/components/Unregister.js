@@ -9,6 +9,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+
 
 function Copyright(props) {
   return (
@@ -28,14 +30,30 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Unregister() {
-  const handleSubmit = (event) => {
+  
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  
+    try {
+      const userId = localStorage.getItem('userId');
+      const response = await axios.delete('http://ceprj.gachon.ac.kr:60014/user/delete', {
+        headers: {
+          'Content-Type': 'application/json',
+          'userId': userId // userId를 헤더에 포함시킵니다
+        },
+      });
+  
+      if (response.status === 200) {
+        console.log('회원 탈퇴 성공:', response.data);
+      } else {
+        console.error('회원 탈퇴 요청 실패:', response.data);
+      }
+    } catch (error) {
+      console.error('회원 탈퇴 요청 중 에러 발생:', error);
+    }
   };
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -72,6 +90,7 @@ export default function Unregister() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleSubmit}
             >
              확인
             </Button>

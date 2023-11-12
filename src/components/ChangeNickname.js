@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { makeStyles } from "@mui/styles";
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -76,37 +77,32 @@ function ChangeNickname() {
   };
 
 
- const handleCheckNickname = async () => {
-  console.log('handleCheckNickname is called');
-  const userId = localStorage.getItem('userId');
-  console.log('userId:', userId);
-  console.log('nickName:', nickName);
+  const handleCheckNickname = async () => {
+    console.log('handleCheckNickname is called');
+    const userId = localStorage.getItem('userId');
+    console.log('userId:', userId);
+    console.log('nickName:', nickName);
+  
     try {
-      const response = await fetch('http://ceprj.gachon.ac.kr:60014/user/update', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: localStorage.getItem('userId'),
-          nickName: nickName,
-        }),
+      const response = await axios.patch('http://ceprj.gachon.ac.kr:60014/user/update', {
+        userId: {userId},
+        nickName: {nickName},
       });
-
+  
       if (response.status === 409) {
         setError('중복된 닉네임입니다.');
         setMessage(null);
         setCheckCompleted(false);
         return;
       }
-
-      if (response.ok) {
+  
+      if (response.status === 200) { // axios에서는 ok 대신 status를 사용합니다
         setError(null);
         setMessage('사용 가능한 닉네임입니다.');
         setCheckCompleted(true);
         return;
       }
-
+  
       setError('닉네임 중복 확인 요청 실패');
       setMessage(null);
       setCheckCompleted(false);
@@ -145,12 +141,15 @@ function ChangeNickname() {
                 variant="outlined"
                 id="outlined-helperText"
                 value={nickName}
-              onChange={(e) => {
-                setNickname(e.target.value);
-                setError(null);
-                setMessage(null);
-                setCheckCompleted(false); // 닉네임을 변경하면 중복 확인 완료 상태를 초기화
-              }}
+                error={!!error} // error 상태를 설정합니다
+                helperText={error || "&#42; 중복되지 않은 닉네임으로 변경해주세요"} // helperText를 설정합니다
+                onChange={(e) => {
+                  setNickname(e.target.value);
+                  setError(null);
+                  setMessage(null);
+                  setCheckCompleted(false); // 닉네임을 변경하면 중복 확인 완료 상태를 초기화
+                }}
+              
             />
             {error && <div className={classes.errorText}>{error}</div>}
             {message && <div className={classes.helperText}>{message}</div>}
@@ -160,6 +159,7 @@ function ChangeNickname() {
                 className={classes.button}
                 variant="contained"
                 onClick={handleCheckNickname}
+                
               >
                 중복 확인
               </Button>
