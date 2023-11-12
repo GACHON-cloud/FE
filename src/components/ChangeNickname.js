@@ -85,8 +85,8 @@ function ChangeNickname() {
   
     try {
       const response = await axios.patch(`http://ceprj.gachon.ac.kr:60014/user/update?userId=${userId}`, {
-  nickName: nickName,
-});
+        nickName: nickName,
+      });
   
       if (response.status === 409) {
         setError('중복된 닉네임입니다.');
@@ -95,7 +95,7 @@ function ChangeNickname() {
         return;
       }
   
-      if (response.status === 200) { 
+      if (response.status === 200) {
         setError(null);
         setMessage('사용 가능한 닉네임입니다.');
         setCheckCompleted(true);
@@ -111,7 +111,6 @@ function ChangeNickname() {
       setCheckCompleted(false);
     }
   };
-
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -141,7 +140,7 @@ function ChangeNickname() {
                 id="outlined-helperText"
                 value={nickName}
                 error={!!error} // error 상태를 설정합니다
-                helperText={error || "&#42; 중복되지 않은 닉네임으로 변경해주세요"} // helperText를 설정합니다
+                helperText={error || " &#42; 중복되지 않은 닉네임으로 변경해주세요"} // helperText를 설정합니다
                 onChange={(e) => {
                   setNickname(e.target.value);
                   setError(null);
