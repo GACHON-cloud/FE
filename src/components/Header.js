@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState, useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,13 +6,26 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
-  const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem('access_token') !== null;
-
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate('/');
-  };
+  
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('access_token') !== null);
+  
+    useEffect(() => {
+      const checkLoginStatus = () => {
+        setIsLoggedIn(localStorage.getItem('access_token') !== null);
+      };
+  
+      window.addEventListener('storage', checkLoginStatus);
+  
+      return () => {
+        window.removeEventListener('storage', checkLoginStatus);
+      };
+    }, []);
+  
+    const handleLogout = () => {
+      localStorage.clear();
+      navigate('/main');
+    };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
