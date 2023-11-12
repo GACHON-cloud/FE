@@ -10,6 +10,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { login, logout } from './userSlice';
 
 function Copyright(props) {
   return (
@@ -36,21 +38,26 @@ export default function SignIn() {
   const accessToken  = query.get('accessToken');
   const userId = query.get('userId');
 
-  useEffect(() => {
-    // URL의 쿼리 파라미터 가져오기
-  
+  // 컴포넌트 내부
+const dispatch = useDispatch();
 
-    
-      // 토큰과 사용자 ID를 로컬 저장소에 저장
-      localStorage.setItem('token', accessToken );
-      localStorage.setItem('userId', userId);
 
-      // 토큰과 사용자 ID를 콘솔에 출력
-      console.log('Token:', accessToken );
-      console.log('User ID:', userId);
 
-  
-    } );
+useEffect(() => {
+  // URL의 쿼리 파라미터 가져오기
+  if (accessToken && userId) {
+    // 토큰과 사용자 ID를 로컬 저장소에 저장
+    localStorage.setItem('token', accessToken);
+    localStorage.setItem('userId', userId);
+
+    // 토큰과 사용자 ID를 콘솔에 출력
+    console.log('Token:', accessToken);
+    console.log('User ID:', userId);
+
+    // 로그인 상태 업데이트
+    dispatch(login({ accessToken, userId }));
+  }
+}, [accessToken, userId, dispatch]);
 
   return (
     <ThemeProvider theme={defaultTheme}>

@@ -4,12 +4,15 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Header() {
   
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('access_token') !== null);
-   
+    const user = useSelector((state) => state.user);
+
+
     useEffect(() => {
       const checkLoginStatus = () => {
         setIsLoggedIn(localStorage.getItem('token') !== null);
@@ -42,11 +45,11 @@ export default function Header() {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Typography  onClick={() => navigate('/mypage')} sx={{ fontSize: '1.2rem', marginRight:'10px'}} color="inherit">My Page</Typography >
-          {isLoggedIn ? (
-            <Typography sx={{ fontSize: '1.2rem' }} color="inherit" onClick={handleLogout}>Logout</Typography >
-          ) : (
-            <Typography sx={{ fontSize: '1.2rem' }} color="inherit" onClick={() => navigate('/')}>Login</Typography >
-          )}
+          {user.isLoggedIn ? (
+          <Typography sx={{ fontSize: '1.2rem' }} color="inherit" onClick={handleLogout}>Logout</Typography>
+        ) : (
+          <Typography sx={{ fontSize: '1.2rem' }} color="inherit" onClick={() => navigate('/')}>Login</Typography>
+        )}
        
         </Toolbar>
       </AppBar>
