@@ -9,14 +9,14 @@ export default function Header() {
   
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('access_token') !== null);
-  
+   
     useEffect(() => {
       const checkLoginStatus = () => {
-        setIsLoggedIn(localStorage.getItem('accessToken') !== null);
+        setIsLoggedIn(localStorage.getItem('token') !== null);
       };
-  
+    
       window.addEventListener('storage', checkLoginStatus);
-  
+    
       return () => {
         window.removeEventListener('storage', checkLoginStatus);
       };
