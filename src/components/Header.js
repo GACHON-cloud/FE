@@ -29,7 +29,8 @@ export default function Header() {
     const handleLogout = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
-      navigate('/');
+      setLogoutSuccess(true); // 로그아웃 성공 시 모달 표시
+    
     };
 
 
@@ -62,9 +63,10 @@ export default function Header() {
       <Modal
         open={logoutSuccess}
         onClose={handleClose}
+        onExited={() => navigate('/')} // 모달이 닫힌 후에 페이지 이동
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      >
+>
         <Box sx={{ 
           position: 'absolute', 
           top: '50%', 

@@ -79,7 +79,7 @@ export default function Main() {
   };
 
   const userId = useSelector((state) => state.user.userId);
-console.log(userId);
+   console.log(userId);
   
   return (
     <Container>
