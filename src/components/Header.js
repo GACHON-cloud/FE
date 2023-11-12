@@ -12,7 +12,7 @@ export default function Header() {
   
     useEffect(() => {
       const checkLoginStatus = () => {
-        setIsLoggedIn(localStorage.getItem('access_token') !== null);
+        setIsLoggedIn(localStorage.getItem('accessToken') !== null);
       };
   
       window.addEventListener('storage', checkLoginStatus);
@@ -23,7 +23,8 @@ export default function Header() {
     }, []);
   
     const handleLogout = () => {
-      localStorage.clear();
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
       navigate('/main');
     };
 

@@ -33,7 +33,7 @@ export default function SignIn() {
   const location = useLocation();
 
   const query = new URLSearchParams(location.search);
-  const token = query.get('accessToken');
+  const accessToken  = query.get('accessToken');
   const userId = query.get('userId');
 
   useEffect(() => {
@@ -42,11 +42,11 @@ export default function SignIn() {
 
     
       // 토큰과 사용자 ID를 로컬 저장소에 저장
-      localStorage.setItem('token', token);
+      localStorage.setItem('token', accessToken );
       localStorage.setItem('userId', userId);
 
       // 토큰과 사용자 ID를 콘솔에 출력
-      console.log('Token:', token);
+      console.log('Token:', accessToken );
       console.log('User ID:', userId);
 
   
