@@ -115,7 +115,7 @@ function ChangeNickname() {
      
       setMessage(
         <Typography variant="body2" color="primary">
-         닉네임 변경이 완료되었습니다.
+         닉네임 변경이 완료되었습니다!
         </Typography>
       );
     };

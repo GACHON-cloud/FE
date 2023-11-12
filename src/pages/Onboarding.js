@@ -95,8 +95,10 @@ export default function Onboarding() {
       });
 
        // userId와 accessToken을 Redux store에 저장
-    dispatch(login({ accessToken, userId: response.data.userId }));
-  
+       const userId = response.data.userId; // 서버에서 전달된 userId
+       localStorage.setItem('userId', userId); // userId를 localStorage에 저장
+   
+       dispatch(login({ accessToken, userId }));
       // 중복 오류 메시지가 없으면 /main으로 이동
       navigate('/main');
     }  catch (error) {
