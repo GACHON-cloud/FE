@@ -151,8 +151,7 @@ function ChangeNickname() {
                 }}
               
             />
-            {error && <div className={classes.errorText}>{error}</div>}
-            {message && <div className={classes.helperText}>{message}</div>}
+            
             </Grid>
             <Grid item xs={4}>
               <Button
