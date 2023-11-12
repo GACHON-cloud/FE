@@ -94,11 +94,9 @@ export default function Onboarding() {
         data: { nickName }, 
       });
 
-      const userId = response.data.userId;
-
-      // userId 값을 Redux 스토어에 저장
-      dispatch(setUserId(userId));
-
+       // userId와 accessToken을 Redux store에 저장
+       const userId = response.data.userId;
+       setUserId(userId);
   
       // 중복 오류 메시지가 없으면 /main으로 이동
       navigate('/main');
