@@ -94,12 +94,11 @@ export default function Onboarding() {
         data: { nickName }, 
       });
 
-       // userId와 accessToken을 Redux store에 저장
-       const userId = response.data.userId; // 서버에서 전달된 userId
-       localStorage.setItem('userId', userId); // userId를 localStorage에 저장
-   
-       dispatch(login({ accessToken, userId }));
-      // 중복 오류 메시지가 없으면 /main으로 이동
+        // userId를 숫자만 추출하여 로컬스토리지에 저장
+    const userId = response.data; // "user=51"
+    const userIdNumber = userId.replace(/[^0-9]/g, ''); // 숫자만 추출
+    localStorage.setItem('userId', userIdNumber);
+      //오류가 없으면 /main으로 이동
       navigate('/main');
     }  catch (error) {
       if (error.response) {

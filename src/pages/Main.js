@@ -79,9 +79,7 @@ export default function Main() {
     setShowChat(!showChat); // 챗봇 상태를 반전시킴
   };
 
-  const { userId } = useSelector((state) => state.user);
-
-  console.log('userId:', userId);
+ 
   
   return (
     <Container>
