@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Snackbar from '@mui/material/Snackbar';
 
 
 function Copyright(props) {
@@ -33,6 +34,8 @@ const defaultTheme = createTheme();
 export default function Unregister() {
   const navigate = useNavigate()
   
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
   
@@ -44,7 +47,10 @@ export default function Unregister() {
   
       if (response.status === 200) {
         console.log('회원 탈퇴 성공:', response.data);
-        navigate('/');
+        setOpenSnackbar(true); // Snackbar 열기
+        setTimeout(() => {
+          navigate('/'); // 2초 후에 홈으로 이동
+        }, 2000);
       } else {
         console.error('회원 탈퇴 요청 실패:', response.data);
       }
@@ -52,7 +58,12 @@ export default function Unregister() {
       console.error('회원 탈퇴 요청 실패:', error);
     }
   };
-  
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -96,7 +107,13 @@ export default function Unregister() {
             
           </Box>
         </Box>
-        
+        <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2000} // 2초 후에 자동으로 사라짐
+        onClose={handleCloseSnackbar}
+        message="탈퇴가 완료되었습니다." // Snackbar 메시지 설정
+        key="snackbar"
+      />
         <Copyright sx={{ mt: 6 }} />
       </Container>
     </ThemeProvider>
