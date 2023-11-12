@@ -111,6 +111,16 @@ function ChangeNickname() {
       }
     }}
 
+    const handleConfirm = () => {
+     
+      setMessage(
+        <Typography variant="body2" color="primary">
+         닉네임 변경이 완료되었습니다.
+        </Typography>
+      );
+    };
+
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="sm">
@@ -168,6 +178,7 @@ function ChangeNickname() {
               fullWidth
               variant="contained"
               disabled={!checkCompleted}
+              onClick={handleConfirm}
               sx={{ mt: 3, mb: 2 }}
             >
               확인
