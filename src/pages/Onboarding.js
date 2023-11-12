@@ -98,6 +98,9 @@ export default function Onboarding() {
     const userId = response.data; // "user=51"
     const userIdNumber = userId.replace(/[^0-9]/g, ''); // 숫자만 추출
     localStorage.setItem('userId', userIdNumber);
+
+    dispatch(login({ accessToken, userId: userIdNumber }));
+
       //오류가 없으면 /main으로 이동
       navigate('/main');
     }  catch (error) {
