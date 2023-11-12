@@ -12,6 +12,7 @@ import { createGlobalStyle } from 'styled-components';
 import Guide from './pages/Guide';
 import SignIn from './pages/SignIn';
 import RealityList from "./pages/RealityList"
+import Details from './pages/Details';
 
 
 const serverURL ="http://ceprj.gachon.ac.kr:60006"
@@ -35,6 +36,7 @@ function App() {
         <Route path="/guide" element={<><Header/><Guide/></>}/>
         <Route path="/reality-list" element={<><Header/><RealityList/></>}/>
         <Route path='/signin' element={<SignIn/>}/>
+        <Route path='/details' element={<><Header/><Details/></>}/>
       </Routes>
       
     </div>
