@@ -87,12 +87,15 @@ function ChangeNickname() {
       const response = await axios.patch(`http://ceprj.gachon.ac.kr:60014/user/update?userId=${userId}`, {
         nickName: nickName,
       });
-   
       if (response.status === 200) {
-        setMessage('사용 가능한 닉네임입니다.');
+        setError(null);
+        setMessage(
+          <Typography variant="body2" color="primary">
+            사용 가능한 닉네임입니다.
+          </Typography>
+        );
         setCheckCompleted(true);
         return;
-      
       }
     
     } catch (error) {
