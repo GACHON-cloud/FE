@@ -7,6 +7,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Chatbot from './Chatbot';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Container = styled('Box')({
   width: 1280,
@@ -76,6 +77,9 @@ export default function Main() {
   const handleChatbotClick = () => {
     setShowChat(!showChat); // 챗봇 상태를 반전시킴
   };
+
+  const userId = useSelector((state) => state.user.userId);
+console.log(userId);
   
   return (
     <Container>

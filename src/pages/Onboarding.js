@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/userSlice';
 
 
 
@@ -75,6 +77,7 @@ export default function Onboarding() {
   const [nickname, setNickname] = useState("");
   const [error, setError] = useState("");
   const location = useLocation();
+  const dispatch = useDispatch();
 
                                                                  
   const query = new URLSearchParams(location.search);
@@ -89,6 +92,9 @@ export default function Onboarding() {
         headers: { Authorization: `Bearer ${accessToken}` }, 
         data: { nickName }, 
       });
+
+       // userId와 accessToken을 Redux store에 저장
+    dispatch(login({ accessToken, userId: response.data.userId }));
   
       // 중복 오류 메시지가 없으면 /main으로 이동
       navigate('/main');
