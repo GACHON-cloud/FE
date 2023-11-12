@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "HeadlandOne",
     fontWeight: 400,
     lineHeight: "24",
+    margin: '10px 0',
   },
   helperText: {
     color: "#757575",
@@ -32,14 +33,15 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "HeadlandOne",
     fontWeight: 400,
     lineHeight: "25.60",
+    margin: '10px 0',
   },
   button: {
     width: 170,
     height: 50,
-    background: "#EEF2FF",
     borderRadius: 4,
     border: "1px solid #A6A6A6",
   },
+
 }));
 
 function Copyright(props) {
@@ -75,6 +77,10 @@ function ChangeNickname() {
 
 
  const handleCheckNickname = async () => {
+  console.log('handleCheckNickname is called');
+  const userId = localStorage.getItem('userId');
+  console.log('userId:', userId);
+  console.log('nickName:', nickName);
     try {
       const response = await fetch('http://ceprj.gachon.ac.kr:60014/user/update', {
         method: 'PATCH',
