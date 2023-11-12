@@ -9,6 +9,7 @@ import Chatbot from './Chatbot';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+
 const Container = styled('Box')({
   width: 1280,
   height: 832,
@@ -78,8 +79,9 @@ export default function Main() {
     setShowChat(!showChat); // 챗봇 상태를 반전시킴
   };
 
-  const userId = useSelector((state) => state.user.userId);
-   console.log(userId);
+  const { userId } = useSelector((state) => state.user);
+
+  console.log('userId:', userId);
   
   return (
     <Container>
