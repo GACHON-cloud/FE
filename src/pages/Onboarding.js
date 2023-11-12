@@ -78,12 +78,15 @@ export default function Onboarding() {
   const [error, setError] = useState("");
   const location = useLocation();
   const dispatch = useDispatch();
+  const [userId, setUserId] = useState(""); // userId 상태 추가
 
                                                                  
   const query = new URLSearchParams(location.search);
   const accessToken = query.get('accessToken');
 
-  
+  const saveUserIdToLocalStorage = (userId) => {
+    localStorage.setItem('userId', userId);
+  };
   const updateNickname = async (nickName) => {
     try {
       const response = await axios({
@@ -93,8 +96,17 @@ export default function Onboarding() {
         data: { nickName }, 
       });
 
-       // userId와 accessToken을 Redux store에 저장
-    dispatch(login({ accessToken, userId: response.data.userId }));
+      const saveUserIdToLocalStorage = (userId) => {
+        localStorage.setItem('userId', userId);
+      };
+      
+      const userId = response.data.userId;
+
+      // userId 값을 Redux 스토어에 저장
+      dispatch(setUserId(userId));
+  
+      // userId 값을 localStorage에 저장
+      saveUserIdToLocalStorage(userId);
   
       // 중복 오류 메시지가 없으면 /main으로 이동
       navigate('/main');
