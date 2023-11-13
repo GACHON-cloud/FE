@@ -48,6 +48,8 @@ export default function Unregister() {
       if (response.status === 200) {
         console.log('회원 탈퇴 성공:', response.data);
         setOpenSnackbar(true); // Snackbar 열기
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');  // 로컬 스토리지 비우기
         setTimeout(() => {
           navigate('/'); // 2초 후에 홈으로 이동
         }, 2000);
