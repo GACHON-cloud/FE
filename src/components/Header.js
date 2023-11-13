@@ -32,10 +32,6 @@ export default function Header() {
     };
 
 
-    const handleClose = () => {
-      setLogoutSuccess(false);
-    };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -55,7 +51,7 @@ export default function Header() {
         ) : (
           <Typography sx={{ fontSize: '1.2rem' }} color="inherit" onClick={() => navigate('/')}>Login</Typography>
         )}
-       
+      <Typography sx={{ fontSize: '1.2rem', marginRight:'10px', borderRight: '1px solid white' }} color="inherit">My Page</Typography >
         </Toolbar>
       </AppBar>
     </Box>
