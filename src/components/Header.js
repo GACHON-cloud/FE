@@ -45,13 +45,13 @@ export default function Header() {
             HomeMate
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Typography  onClick={() => navigate('/mypage')} sx={{ fontSize: '1.2rem', marginRight:'15px', borderRight: '1px solid white', paddingRight: '10px'}} color="inherit">My Page</Typography >
+          
           {user.isLoggedIn ? (
           <Typography sx={{ fontSize: '1.2rem' }} color="inherit" onClick={handleLogout}>Logout</Typography>
         ) : (
           <Typography sx={{ fontSize: '1.2rem' }} color="inherit" onClick={() => navigate('/')}>Login</Typography>
         )}
-
+         <Typography  onClick={() => navigate('/mypage')} sx={{ fontSize: '1.2rem', marginRight:'15px', borderLeft: '1px solid white', paddingLeft: '10px'}} color="inherit">My Page</Typography >
         </Toolbar>
       </AppBar>
     </Box>
