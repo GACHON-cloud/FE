@@ -13,6 +13,7 @@ import Guide from './pages/Guide';
 import SignIn from './pages/SignIn';
 import RealityList from "./pages/RealityList"
 import Details from './pages/Details';
+import SimpleSlider from "./components/Swiper"
 
 
 const serverURL ="http://ceprj.gachon.ac.kr:60006"
@@ -37,6 +38,7 @@ function App() {
         <Route path="/reality-list" element={<><Header/><RealityList/></>}/>
         <Route path='/signin' element={<SignIn/>}/>
         <Route path='/details' element={<><Header/><Details/></>}/>
+        <Route path='/swiper' element={<><Header/><SimpleSlider/></>}/>
       </Routes>
       
     </div>
