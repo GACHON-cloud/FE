@@ -39,7 +39,7 @@ export default function Details() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-           sadasd
+           
              <Swiper/>
               {/* Recent Orders */}
               <Grid item xs={12}>

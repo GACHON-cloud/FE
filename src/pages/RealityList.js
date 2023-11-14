@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export default function AlignItemsList() {
+export default function RealityList() {
 
 
   const dividerStyle = {
