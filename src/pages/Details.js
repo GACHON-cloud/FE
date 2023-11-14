@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Orders from '../components/Buildingdetail';
-import Carousel from '../components/Carousel';
+import Swiper from '../components/Swiper';
 
 
 
@@ -39,8 +39,8 @@ export default function Details() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-           
-             <Carousel/>
+           sadasd
+             <Swiper/>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>

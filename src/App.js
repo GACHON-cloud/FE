@@ -13,7 +13,6 @@ import Guide from './pages/Guide';
 import SignIn from './pages/SignIn';
 import RealityList from "./pages/RealityList"
 import Details from './pages/Details';
-import Carousel from 'react-material-ui-carousel';
 
 
 const serverURL ="http://ceprj.gachon.ac.kr:60006"
@@ -38,7 +37,6 @@ function App() {
         <Route path="/reality-list" element={<><Header/><RealityList/></>}/>
         <Route path='/signin' element={<SignIn/>}/>
         <Route path='/details' element={<><Header/><Details/></>}/>
-        <Route path='/carousel' element={<><Header/><Carousel/></>}/>
       </Routes>
       
     </div>
