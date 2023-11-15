@@ -129,7 +129,7 @@ export default function RealtyList() {
   try {
     const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
       params: {
-        folderName: building.building_name
+        folderName: `/img/${building.building_name}/`
       }
     });
     const images = response.data;
@@ -143,6 +143,7 @@ export default function RealtyList() {
     return null;
   }
 };
+
 
 
 
@@ -176,16 +177,16 @@ export default function RealtyList() {
           {getCurrentItems().map((building) => (
   <React.Fragment key={building.id}>
     <ListItem alignItems="center">
-      <ListItemAvatar>
-        {building && (
-          <img
-            src={`/img/${building.building_name}/${fetchBuildingImages(building)}`}
-            width="200px"
-            style={{ margin: '5px' }}
-            alt="Building"
-          />
-        )}
-      </ListItemAvatar>
+    <ListItemAvatar>
+  {building && (
+    <img
+      src={`http://ceprj.gachon.ac.kr:60014/img/${building.building_name}/${fetchBuildingImages(building)}`}
+      width="200px"
+      style={{ margin: '5px' }}
+      alt="Building"
+    />
+  )}
+</ListItemAvatar>
       <div style={{ margin: '30px' }}>
         <ListItemText
           primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.address}</Typography>}
