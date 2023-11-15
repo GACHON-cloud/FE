@@ -69,7 +69,7 @@ export default function RealtyList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/building/getAll');
+        const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll');
         setBuildingList(response.data);
       } catch (error) {
         console.error(error);
