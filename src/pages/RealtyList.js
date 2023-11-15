@@ -14,8 +14,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Pagination } from '@mui/material';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom'; 
-import BackButton from '../utils/BackButton';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,7 +59,7 @@ export default function RealtyList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(20);
   const [searchTerm, setSearchTerm] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,12 +97,11 @@ export default function RealtyList() {
 
   const handleSearch = () => {
     const queryString = searchTerm ? `?q=${encodeURIComponent(searchTerm)}` : '';
-    history.push(`/building/search${queryString}`);
+    navigate(`/building/search${queryString}`);
   };
 
   return (
     <>
-    <BackButton/>
       <Grid container direction="column" justifyContent="center" alignItems="center">
         <Box sx={{ flexGrow: 1 }}>
           <AppBar elevation={0} style={{ backgroundColor: 'transparent' }} position="static">
