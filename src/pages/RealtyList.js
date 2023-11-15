@@ -14,6 +14,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Pagination } from '@mui/material';
 import axios from 'axios';
+import TestPage from './Test';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -150,6 +151,7 @@ export default function RealtyList() {
   
   return (
     <>
+    <TestPage/>
       <Grid container direction="column" justifyContent="center" alignItems="center">
         <Box sx={{ flexGrow: 1 }}>
           <AppBar elevation={0} style={{ backgroundColor: 'transparent' }} position="static">

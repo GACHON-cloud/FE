@@ -18,6 +18,7 @@ import Details from './pages/Details';
 
 
 
+
 function App() {
   
   
