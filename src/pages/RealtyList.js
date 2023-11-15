@@ -66,7 +66,14 @@ export default function RealtyList() {
         if (searchTerm !== '') {
           response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${encodeURIComponent(searchTerm)}`);
         } else {
-          response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll');
+          const startIndex = (currentPage - 1) * itemsPerPage;
+          const endIndex = startIndex + itemsPerPage;
+          response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
+            params: {
+              startIndex,
+              endIndex
+            }
+          });
         }
         setBuildingList(response.data);
       } catch (error) {
@@ -74,7 +81,7 @@ export default function RealtyList() {
       }
     };
     fetchData();
-  }, [searchTerm]);
+  }, [currentPage, itemsPerPage, searchTerm]);
 
   // 현재 페이지에 해당하는 매물 목록을 가져오는 함수
   const getCurrentItems = () => {
@@ -82,19 +89,20 @@ export default function RealtyList() {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     return buildingList.slice(indexOfFirstItem, indexOfLastItem);
   };
-    //거래 유형별 금액 출력
-    const getPriceText = (building) => {
-      let priceText = '';
-      if (building.transactionType === '월세' || building.transactionType === '단기임대') {
-        priceText = ` ${building.rentPrice}만 원`;
-      } else if (building.transactionType === '전세') {
-        priceText = ` ${building.warantPrice}만 원`;
-      } else if (building.transactionType === '매매') {
-        priceText = ` ${building.dealPrice}만 원`;
-      }
-      return `${building.transactionType} ${priceText}`;
-    };
-    
+  
+  // 거래 유형별 금액 출력
+  const getPriceText = (building) => {
+    let priceText = '';
+    if (building.transactionType === '월세' || building.transactionType === '단기임대') {
+      priceText = ` ${building.rentPrice}만 원`;
+    } else if (building.transactionType === '전세') {
+      priceText = ` ${building.warantPrice}만 원`;
+    } else if (building.transactionType === '매매') {
+      priceText = ` ${building.dealPrice}만 원`;
+    }
+    return `${building.transactionType} ${priceText}`;
+  };
+
   // 페이지 변경 시 실행되는 함수
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
@@ -149,15 +157,15 @@ export default function RealtyList() {
                     primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.address}</Typography>}
                     secondary={
                       <React.Fragment>
-                                      <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                        style={{ fontSize: '1.3em' }}
-                                      > 
-                                        {getPriceText(building)}
-                                      </Typography>
+                        <Typography
+                          sx={{ display: 'inline' }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                          style={{ fontSize: '1.3em' }}
+                        >
+                          {getPriceText(building)}
+                        </Typography>
                       </React.Fragment>
                     }
                   />
