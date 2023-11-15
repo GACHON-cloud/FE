@@ -95,9 +95,11 @@ export default function RealtyList() {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearch = () => {
-    const queryString = searchTerm ? `?q=${encodeURIComponent(searchTerm)}` : '';
-    navigate(`/building/search${queryString}`);
+  const handleSearch = (event) => {
+    if (event.key === 'Enter') {
+      const queryString = searchTerm ? `?q=${encodeURIComponent(searchTerm)}` : '';
+      navigate(`/building/search${queryString}`);
+    }
   };
 
   return (
@@ -116,9 +118,9 @@ export default function RealtyList() {
                   inputProps={{ 'aria-label': 'search' }}
                   value={searchTerm}
                   onChange={handleSearchChange}
+                  onKeyPress={handleSearch}
                 />
               </Search>
-              <button onClick={handleSearch}>검색</button>
             </Grid>
           </AppBar>
         </Box>
