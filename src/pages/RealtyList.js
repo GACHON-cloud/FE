@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -12,6 +12,7 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 
 
@@ -55,16 +56,34 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export default function RealityList() {
+export default function RealtyList() {
 
-
+  
   const dividerStyle = {
     margin: '0 0', // 양쪽 대칭
     backgroundColor: 'rgba(0, 0, 0, 0.1)', 
   };
+  
+  const [buildingList, setBuildingList] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/building/getAll');
+        setBuildingList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
+
+    
+
         <Grid
   container
   direction="column"
@@ -103,76 +122,38 @@ export default function RealityList() {
     <List sx={{ textAlign: 'center', width: '70%', margin:"50px",  bgcolor: 'background.paper' }}>
       <Grid style={{margin: "20px", textAlign: "left", fontWeight: "bold", color:"#414141"}}>검색 결과</Grid>
     <Divider sx={dividerStyle} />
+    {buildingList.map((building) => (
+    <React.Fragment key={building.id}>
       <ListItem alignItems="center">
         <ListItemAvatar>
-          <img src="/images/testimg.png" width="200px" style={{margin: "5px"}}/>
+          <img src="/images/testimg.png" width="200px" style={{ margin: '5px' }} />
         </ListItemAvatar>
-        <div style={{ margin:"30px",}}>
-        <ListItemText
-          primary={<Typography variant="h5" style={{ fontWeight: "bold",  fontSize: '1.5rem'}}>태평동</Typography>}
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-                style={{ fontSize: '1.3em'}}
-              >
-                매매 6억 3000만원
-              </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
-            </React.Fragment>
-          }
-        /></div>
+        <div style={{ margin: '30px' }}>
+          <ListItemText
+            primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.buildingName}</Typography>}
+            secondary={
+              <React.Fragment>
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                  style={{ fontSize: '1.3em' }}
+                >
+                  {building.dealPrice ? `매매 ${building.dealPrice}` : `전세 ${building.rentPrice}`}
+                </Typography>
+                {" — I'll be in your neighborhood doing errands this…"}
+              </React.Fragment>
+            }
+          />
+        </div>
       </ListItem>
       <Divider sx={dividerStyle} />
       <Divider variant="inset" component="li" />
-      <ListItem alignItems="center">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary={<Typography variant="h5" >Summer BBQ</Typography>}
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-                
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Oui Oui"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Sandra Adams
-              </Typography>
-              {' — Do you have Paris recommendations? Have you ever…'}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-    </List>
+    </React.Fragment>
+  ))}
+
+</List>
     </Grid>
     </>
   );

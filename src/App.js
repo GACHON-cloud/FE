@@ -11,7 +11,7 @@ import MyChatbot from './pages/Chatbot';
 import { createGlobalStyle } from 'styled-components';
 import Guide from './pages/Guide';
 import SignIn from './pages/SignIn';
-import RealityList from "./pages/RealityList"
+import RealtyList from "./pages/RealtyList"
 import Details from './pages/Details';
 
 
@@ -36,7 +36,7 @@ function App() {
         <Route path="/mypage" element={<><Header/><MyPage/></>}/>
         <Route path="/chatbot" element={<MyChatbot/>}/>
         <Route path="/guide" element={<><Header/><Guide/></>}/>
-        <Route path="/reality-list" element={<><Header/><RealityList/></>}/>
+        <Route path="/realty-list" element={<><Header/><RealtyList/></>}/>
         <Route path='/details' element={<><Header/><Details/></>}/>
       </Routes>
       
