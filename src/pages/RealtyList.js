@@ -68,14 +68,12 @@ export default function RealtyList() {
         } else {
           const startIndex = (currentPage - 1) * itemsPerPage;
           const endIndex = startIndex + itemsPerPage;
-          if (currentPage <= 100) {
-            response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
-              params: {
-                startIndex,
-                endIndex
-              }
-            });
-          }
+          response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
+            params: {
+              startIndex,
+              endIndex
+            }
+          });
         }
         setBuildingList(response.data);
       } catch (error) {
@@ -118,32 +116,7 @@ export default function RealtyList() {
     if (event.key === 'Enter') {
       event.preventDefault();
       // 검색어를 입력한 뒤 엔터를 누르면 API 호출
-      if (searchTerm !== '') {
-        fetchData();
-      }
-    }
-  };
-
-  const fetchData = async () => {
-    try {
-      let response;
-      if (searchTerm !== '') {
-        response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${encodeURIComponent(searchTerm)}`);
-      } else {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        if (currentPage <= 3) {
-          response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
-            params: {
-              startIndex,
-              endIndex
-            }
-          });
-        }
-      }
-      setBuildingList(response.data);
-    } catch (error) {
-      console.error(error);
+      setSearchTerm(event.target.value);
     }
   };
 
@@ -177,7 +150,7 @@ export default function RealtyList() {
             <React.Fragment key={building.id}>
               <ListItem alignItems="center">
                 <ListItemAvatar>
-                  <img src="/images/testimg.png" width="200px" style={{ margin: '5px' }} alt="Building" />
+                  {/* <img src="/images/testimg.png" width="200px" style={{ margin: '5px' }} alt="Building" /> */}
                 </ListItemAvatar>
                 <div style={{ margin: '30px' }}>
                   <ListItemText
@@ -205,7 +178,7 @@ export default function RealtyList() {
 
           <Grid sx={{ justifyContent: 'center', marginTop: '20px' }}>
             <Pagination
-              count={100}
+              count={Math.ceil(buildingList.length / itemsPerPage)}
               page={currentPage}
               onChange={handlePageChange}
             />
