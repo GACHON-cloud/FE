@@ -134,7 +134,7 @@ export default function RealtyList() {
                 </ListItemAvatar>
                 <div style={{ margin: '30px' }}>
                   <ListItemText
-                    primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.buildingName}</Typography>}
+                    primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.address}</Typography>}
                     secondary={
                       <React.Fragment>
                         <Typography
@@ -144,7 +144,7 @@ export default function RealtyList() {
                           color="text.primary"
                           style={{ fontSize: '1.3em' }}
                         >
-                          {building.dealPrice ? `매매 ${building.dealPrice}` : `전세 ${building.rentPrice}`}
+                          {building.transactionType}
                         </Typography>
                       </React.Fragment>
                     }
