@@ -14,7 +14,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Pagination } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -59,24 +58,19 @@ export default function RealtyList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(20);
   const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let response;
-        if (searchTerm !== '') {
-          response = await axios.get(`/building/search?q=${searchTerm}`);
-        } else {
-          response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll');
+    if (searchTerm !== '') {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${searchTerm}`);
+          setBuildingList(response.data);
+        } catch (error) {
+          console.error(error);
         }
-        setBuildingList(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
+      };
+      fetchData();
+    }
   }, [searchTerm]);
 
   // 현재 페이지에 해당하는 매물 목록을 가져오는 함수
@@ -95,10 +89,11 @@ export default function RealtyList() {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearch = (event) => {
+  const handleSearchKeyPress = (event) => {
     if (event.key === 'Enter') {
-      const queryString = searchTerm ? `?q=${encodeURIComponent(searchTerm)}` : '';
-      navigate(`/building/search${queryString}`);
+      event.preventDefault();
+      // 검색어를 입력한 뒤 엔터를 누르면 API 호출
+      setSearchTerm(event.target.value);
     }
   };
 
@@ -118,7 +113,7 @@ export default function RealtyList() {
                   inputProps={{ 'aria-label': 'search' }}
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  onKeyPress={handleSearch}
+                  onKeyPress={handleSearchKeyPress}
                 />
               </Search>
             </Grid>
@@ -136,7 +131,7 @@ export default function RealtyList() {
                 </ListItemAvatar>
                 <div style={{ margin: '30px' }}>
                   <ListItemText
-                    primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.buildingName}</Typography>}
+                    primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.address}</Typography>}
                     secondary={
                       <React.Fragment>
                         <Typography
