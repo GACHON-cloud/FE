@@ -64,9 +64,9 @@ export default function RealtyList() {
       try {
         let response;
         if (searchTerm !== '') {
-          response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${encodeURIComponent(searchTerm)}`);
+          response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${encodeURIComponent(searchTerm)}&page=${currentPage}&perPage=${itemsPerPage}`);
         } else {
-          response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll');
+          response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/getAll?page=${currentPage}&perPage=${itemsPerPage}`);
         }
         setBuildingList(response.data);
       } catch (error) {
@@ -74,14 +74,7 @@ export default function RealtyList() {
       }
     };
     fetchData();
-  }, [searchTerm]);
-
-  // 현재 페이지에 해당하는 매물 목록을 가져오는 함수
-  const getCurrentItems = () => {
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    return buildingList.slice(indexOfFirstItem, indexOfLastItem);
-  };
+  }, [searchTerm, currentPage, itemsPerPage]);
 
   // 페이지 변경 시 실행되는 함수
   const handlePageChange = (event, page) => {
@@ -126,7 +119,7 @@ export default function RealtyList() {
           <Grid style={{ margin: '20px', textAlign: 'left', fontWeight: 'bold', color: '#414141' }}>검색 결과</Grid>
           <Divider sx={{ margin: '0 0', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
 
-          {getCurrentItems().map((building) => (
+          {buildingList.map((building) => (
             <React.Fragment key={building.id}>
               <ListItem alignItems="center">
                 <ListItemAvatar>
