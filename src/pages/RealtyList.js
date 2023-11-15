@@ -157,4 +157,3 @@ export default function RealtyList() {
     </>
   );
 }
- 이 코드에 적용해줘
