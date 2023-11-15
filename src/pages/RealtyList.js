@@ -129,7 +129,7 @@ export default function RealtyList() {
   try {
     const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
       params: {
-        folderName: `/imgs/${building.building_name}/`
+        folderName: `imgs/${building.building_name}/`
       }
     });
     const images = response.data;
