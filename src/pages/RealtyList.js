@@ -134,7 +134,7 @@ export default function RealtyList() {
     });
     const images = response.data;
     if (images && images.length > 0) {
-      return images[0]; // 첫 번째 이미지를 반환
+      return images[1]; // 첫 번째 이미지를 반환
     } else {
       return null;
     }
