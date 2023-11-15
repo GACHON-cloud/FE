@@ -131,7 +131,7 @@ export default function RealtyList() {
                 </ListItemAvatar>
                 <div style={{ margin: '30px' }}>
                   <ListItemText
-                    primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.address}</Typography>}
+                    primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.buildingName}</Typography>}
                     secondary={
                       <React.Fragment>
                         <Typography
