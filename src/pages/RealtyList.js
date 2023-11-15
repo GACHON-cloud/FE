@@ -110,7 +110,7 @@ export default function RealtyList() {
       setBuildingList(response.data);
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        console.log('검색 결과가 없습니다');
+        alert('검색 결과가 없습니다');
       } else {
         console.error(error);
       }
@@ -124,6 +124,29 @@ export default function RealtyList() {
     }
   };
 
+ // 매물 이미지 미리보기 한장 출력
+ const fetchBuildingImages = async (building) => {
+  try {
+    const response = await axios.get('/file/getFolderList', {
+      params: {
+        folderName: building.building_name
+      }
+    });
+    const images = response.data;
+    if (images && images.length > 0) {
+      return images[0]; // 첫 번째 이미지를 반환
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+
+
+  
   return (
     <>
       <Grid container direction="column" justifyContent="center" alignItems="center">
@@ -151,34 +174,42 @@ export default function RealtyList() {
           <Divider sx={{ margin: '0 0', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
 
           {getCurrentItems().map((building) => (
-            <React.Fragment key={building.id}>
-              <ListItem alignItems="center">
-                <ListItemAvatar>
-                  <img src="/images/testimg.png" width="200px" style={{ margin: '5px' }} alt="Building" />
-                </ListItemAvatar>
-                <div style={{ margin: '30px' }}>
-                  <ListItemText
-                    primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.address}</Typography>}
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          sx={{ display: 'inline' }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                          style={{ fontSize: '1.3em' }}
-                        >
-                          {getPriceText(building)}
-                        </Typography>
-                      </React.Fragment>
-                    }
-                  />
-                </div>
-              </ListItem>
-              <Divider sx={{ margin: '0 0', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
-              <Divider variant="inset" component="li" />
+  <React.Fragment key={building.id}>
+    <ListItem alignItems="center">
+      <ListItemAvatar>
+        {building && (
+          <img
+            src={`/img/${building.building_name}/${fetchBuildingImages(building)}`}
+            width="200px"
+            style={{ margin: '5px' }}
+            alt="Building"
+          />
+        )}
+      </ListItemAvatar>
+      <div style={{ margin: '30px' }}>
+        <ListItemText
+          primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.address}</Typography>}
+          secondary={
+            <React.Fragment>
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+                style={{ fontSize: '1.3em' }}
+              >
+                {getPriceText(building)}
+              </Typography>
             </React.Fragment>
-          ))}
+          }
+        />
+      </div>
+    </ListItem>
+    <Divider sx={{ margin: '0 0', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
+    <Divider variant="inset" component="li" />
+  </React.Fragment>
+))}
+
 
           <Grid sx={{ justifyContent: 'center', marginTop: '20px' }}>
             <Pagination
