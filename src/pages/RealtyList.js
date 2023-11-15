@@ -96,6 +96,19 @@ export default function RealtyList() {
 
   return (
        <>
+         <Grid container direction="column" justifyContent="center" alignItems="center">
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar elevation={0} style={{ backgroundColor: 'transparent' }} position="static">
+          <Grid item style={{ margin: "100px 50px 50px 50px" }}>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase style={{ color: "#898989" }} placeholder="지역명 또는 단지명으로 검색해주세요." inputProps={{ 'aria-label': 'search' }} />
+            </Search>
+          </Grid>
+        </AppBar>
+      </Box>
       <List sx={{ textAlign: 'center', width: '70%', margin: '50px', bgcolor: 'background.paper' }}>
         <Grid style={{ margin: '20px', textAlign: 'left', fontWeight: 'bold', color: '#414141' }}>검색 결과</Grid>
         <Divider sx={dividerStyle} />
@@ -120,7 +133,6 @@ export default function RealtyList() {
                       >
                         {building.dealPrice ? `매매 ${building.dealPrice}` : `전세 ${building.rentPrice}`}
                       </Typography>
-                      {" — I'll be in your neighborhood doing errands this…"}
                     </React.Fragment>
                   }
                 />
@@ -140,7 +152,7 @@ export default function RealtyList() {
         </Grid>
 
       </List>
-    
+    </Grid>
     </>
   );
 }
