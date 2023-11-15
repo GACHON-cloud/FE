@@ -37,7 +37,7 @@ export default function Landing() {
                 <Grid item xs={7}>
                     <Stack spacing={10}>
                         <Grid container direction="column">
-                            <BoldText>Welcome!</BoldText>
+                            <BoldText>Welcome!!</BoldText>
                         </Grid>
                         <div style={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap:"10px" }}>
                         <img
