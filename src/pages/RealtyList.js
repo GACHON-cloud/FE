@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function RealtyList() {
   const [buildingList, setBuildingList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(100);
+  const [itemsPerPage] = useState(20);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -68,12 +68,14 @@ export default function RealtyList() {
         } else {
           const startIndex = (currentPage - 1) * itemsPerPage;
           const endIndex = startIndex + itemsPerPage;
-          response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
-            params: {
-              startIndex,
-              endIndex
-            }
-          });
+          if (currentPage <= 100) {
+            response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
+              params: {
+                startIndex,
+                endIndex
+              }
+            });
+          }
         }
         setBuildingList(response.data);
       } catch (error) {
@@ -116,7 +118,9 @@ export default function RealtyList() {
     if (event.key === 'Enter') {
       event.preventDefault();
       // 검색어를 입력한 뒤 엔터를 누르면 API 호출
-      fetchData();
+      if (searchTerm !== '') {
+        fetchData();
+      }
     }
   };
 
@@ -128,12 +132,14 @@ export default function RealtyList() {
       } else {
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
-          params: {
-            startIndex,
-            endIndex
-          }
-        });
+        if (currentPage <= 100) {
+          response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
+            params: {
+              startIndex,
+              endIndex
+            }
+          });
+        }
       }
       setBuildingList(response.data);
     } catch (error) {
@@ -199,7 +205,7 @@ export default function RealtyList() {
 
           <Grid sx={{ justifyContent: 'center', marginTop: '20px' }}>
             <Pagination
-              count={Math.ceil(buildingList.length / itemsPerPage)}
+              count={100}
               page={currentPage}
               onChange={handlePageChange}
             />
