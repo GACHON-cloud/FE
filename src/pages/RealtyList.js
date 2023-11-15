@@ -86,11 +86,11 @@ export default function RealtyList() {
     const getPriceText = (building) => {
       let priceText = '';
       if (building.transactionType === '월세' || building.transactionType === '단기임대') {
-        priceText = `월세 ${building.rentPrice} 만 원`;
+        priceText = ` ${building.rentPrice}만 원`;
       } else if (building.transactionType === '전세') {
-        priceText = `전세 ${building.warantPrice} 만 원`;
+        priceText = ` ${building.warantPrice}만 원`;
       } else if (building.transactionType === '매매') {
-        priceText = `매매 ${building.dealPrice} 만 원`;
+        priceText = ` ${building.dealPrice}만 원`;
       }
       return `${building.transactionType} ${priceText}`;
     };
