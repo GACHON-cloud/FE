@@ -102,10 +102,18 @@ export default function RealtyList() {
 
   const search = async () => {
     try {
-      const response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${encodeURIComponent(searchTerm)}`);
+      const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/search', {
+        params: {
+          keyword: searchTerm
+        }
+      });
       setBuildingList(response.data);
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 404) {
+        console.log('검색 결과가 없습니다');
+      } else {
+        console.error(error);
+      }
     }
   };
 
