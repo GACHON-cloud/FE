@@ -85,14 +85,14 @@ export default function RealtyList() {
     //거래 유형별 금액 출력
     const getPriceText = (building) => {
       let priceText = '';
-      if (building.transaction_type === '월세' || building.transaction_type === '단기임대') {
-        priceText = `월세 ${building.rent_price} 만 원`;
-      } else if (building.transaction_type === '전세') {
-        priceText = `전세 ${building.warant_price} 만 원`;
-      } else if (building.transaction_type === '매매') {
-        priceText = `매매 ${building.deal_price} 만 원`;
+      if (building.transactionType === '월세' || building.transactionType === '단기임대') {
+        priceText = `월세 ${building.rentPrice} 만 원`;
+      } else if (building.transactionType === '전세') {
+        priceText = `전세 ${building.warantPrice} 만 원`;
+      } else if (building.transactionType === '매매') {
+        priceText = `매매 ${building.dealPrice} 만 원`;
       }
-      return `${building.transaction_type} ${priceText}`;
+      return `${building.transactionType} ${priceText}`;
     };
     
   // 페이지 변경 시 실행되는 함수
