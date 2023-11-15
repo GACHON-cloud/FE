@@ -64,9 +64,9 @@ export default function RealtyList() {
       try {
         let response;
         if (searchTerm !== '') {
-          response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${encodeURIComponent(searchTerm)}&page=${currentPage}&perPage=${itemsPerPage}`);
+          response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${encodeURIComponent(searchTerm)}`);
         } else {
-          response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/getAll?page=${currentPage}&perPage=${itemsPerPage}`);
+          response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll');
         }
         setBuildingList(response.data);
       } catch (error) {
@@ -74,8 +74,27 @@ export default function RealtyList() {
       }
     };
     fetchData();
-  }, [searchTerm, currentPage, itemsPerPage]);
+  }, [searchTerm]);
 
+  // 현재 페이지에 해당하는 매물 목록을 가져오는 함수
+  const getCurrentItems = () => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    return buildingList.slice(indexOfFirstItem, indexOfLastItem);
+  };
+    //거래 유형별 금액 출력
+    const getPriceText = (building) => {
+      let priceText = '';
+      if (building.transaction_type === '월세' || building.transaction_type === '단기임대') {
+        priceText = `월세 ${building.rent_price} 만 원`;
+      } else if (building.transaction_type === '전세') {
+        priceText = `전세 ${building.warant_price} 만 원`;
+      } else if (building.transaction_type === '매매') {
+        priceText = `매매 ${building.deal_price} 만 원`;
+      }
+      return `${building.transaction_type} ${priceText}`;
+    };
+    
   // 페이지 변경 시 실행되는 함수
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
@@ -119,7 +138,7 @@ export default function RealtyList() {
           <Grid style={{ margin: '20px', textAlign: 'left', fontWeight: 'bold', color: '#414141' }}>검색 결과</Grid>
           <Divider sx={{ margin: '0 0', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
 
-          {buildingList.map((building) => (
+          {getCurrentItems().map((building) => (
             <React.Fragment key={building.id}>
               <ListItem alignItems="center">
                 <ListItemAvatar>
@@ -130,15 +149,15 @@ export default function RealtyList() {
                     primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.address}</Typography>}
                     secondary={
                       <React.Fragment>
-                        <Typography
-                          sx={{ display: 'inline' }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                          style={{ fontSize: '1.3em' }}
-                        >
-                          {building.transactionType}
-                        </Typography>
+                                      <Typography
+                                        sx={{ display: 'inline' }}
+                                        component="span"
+                                        variant="body2"
+                                        color="text.primary"
+                                        style={{ fontSize: '1.3em' }}
+                                      > 
+                                        {getPriceText(building)}
+                                      </Typography>
                       </React.Fragment>
                     }
                   />
