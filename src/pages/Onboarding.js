@@ -4,7 +4,6 @@ import { makeStyles } from "@mui/styles";
 import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/userSlice';
@@ -78,7 +77,7 @@ export default function Onboarding() {
   const [error, setError] = useState("");
   const location = useLocation();
   const dispatch = useDispatch();
-  const [userId, setUserId] = useState(""); // userId 상태 추가
+
 
                                                                  
   const query = new URLSearchParams(location.search);

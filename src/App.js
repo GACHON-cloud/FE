@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React from 'react'
 import { Reset } from 'styled-reset'
 import './App.css';
 import Landing from './pages/Landing';
@@ -16,7 +16,7 @@ import Details from './pages/Details';
 
 
 
-const serverURL ="http://ceprj.gachon.ac.kr:60006"
+
 
 function App() {
   

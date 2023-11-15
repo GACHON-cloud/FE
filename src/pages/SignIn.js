@@ -10,8 +10,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { login, logout } from '../redux/userSlice';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/userSlice';
 
 function Copyright(props) {
   return (
