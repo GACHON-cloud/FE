@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function RealtyList() {
   const [buildingList, setBuildingList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(20);
+  const [itemsPerPage] = useState(100);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -116,7 +116,28 @@ export default function RealtyList() {
     if (event.key === 'Enter') {
       event.preventDefault();
       // 검색어를 입력한 뒤 엔터를 누르면 API 호출
-      setSearchTerm(event.target.value);
+      fetchData();
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      let response;
+      if (searchTerm !== '') {
+        response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${encodeURIComponent(searchTerm)}`);
+      } else {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
+          params: {
+            startIndex,
+            endIndex
+          }
+        });
+      }
+      setBuildingList(response.data);
+    } catch (error) {
+      console.error(error);
     }
   };
 
