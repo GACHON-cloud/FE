@@ -132,7 +132,7 @@ export default function RealtyList() {
       } else {
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        if (currentPage <= 100) {
+        if (currentPage <= 3) {
           response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
             params: {
               startIndex,
