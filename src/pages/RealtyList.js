@@ -62,35 +62,28 @@ export default function RealtyList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let response;
-        if (searchTerm !== '') {
-          response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${encodeURIComponent(searchTerm)}`);
-        } else {
-          const startIndex = (currentPage - 1) * itemsPerPage;
-          const endIndex = startIndex + itemsPerPage;
-          response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
-            params: {
-              startIndex,
-              endIndex
-            }
-          });
-        }
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
+          params: {
+            startIndex,
+            endIndex
+          }
+        });
         setBuildingList(response.data);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
-  }, [currentPage, itemsPerPage, searchTerm]);
+  }, [currentPage, itemsPerPage]);
 
-  // 현재 페이지에 해당하는 매물 목록을 가져오는 함수
   const getCurrentItems = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     return buildingList.slice(indexOfFirstItem, indexOfLastItem);
   };
-  
-  // 거래 유형별 금액 출력
+
   const getPriceText = (building) => {
     let priceText = '';
     if (building.transactionType === '월세' || building.transactionType === '단기임대') {
@@ -103,20 +96,23 @@ export default function RealtyList() {
     return `${building.transactionType} ${priceText}`;
   };
 
-  // 페이지 변경 시 실행되는 함수
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
   };
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+  const search = async () => {
+    try {
+      const response = await axios.get(`http://ceprj.gachon.ac.kr:60014/building/search?q=${encodeURIComponent(searchTerm)}`);
+      setBuildingList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSearchKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      // 검색어를 입력한 뒤 엔터를 누르면 API 호출
-      setSearchTerm(event.target.value);
+      search();
     }
   };
 
@@ -135,7 +131,7 @@ export default function RealtyList() {
                   placeholder="지역명 또는 단지명으로 검색해주세요."
                   inputProps={{ 'aria-label': 'search' }}
                   value={searchTerm}
-                  onChange={handleSearchChange}
+                  onChange={(event) => setSearchTerm(event.target.value)}
                   onKeyPress={handleSearchKeyPress}
                 />
               </Search>
@@ -150,7 +146,7 @@ export default function RealtyList() {
             <React.Fragment key={building.id}>
               <ListItem alignItems="center">
                 <ListItemAvatar>
-                  {/* <img src="/images/testimg.png" width="200px" style={{ margin: '5px' }} alt="Building" /> */}
+                  <img src="/images/testimg.png" width="200px" style={{ margin: '5px' }} alt="Building" />
                 </ListItemAvatar>
                 <div style={{ margin: '30px' }}>
                   <ListItemText
