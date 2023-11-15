@@ -127,7 +127,7 @@ export default function RealtyList() {
  // 매물 이미지 미리보기 한장 출력
  const fetchBuildingImages = async (building) => {
   try {
-    const response = await axios.get('/file/getFolderList', {
+    const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
       params: {
         folderName: building.building_name
       }
