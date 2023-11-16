@@ -14,7 +14,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Pagination } from '@mui/material';
 import axios from 'axios';
-import TestPage from './Test';
+import TestPage from './test';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -151,7 +151,7 @@ export default function RealtyList() {
   
   return (
     <>
-    <TestPage/>
+     <TestPage/>
       <Grid container direction="column" justifyContent="center" alignItems="center">
         <Box sx={{ flexGrow: 1 }}>
           <AppBar elevation={0} style={{ backgroundColor: 'transparent' }} position="static">
@@ -191,7 +191,7 @@ export default function RealtyList() {
 </ListItemAvatar>
       <div style={{ margin: '30px' }}>
         <ListItemText
-          primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.address}</Typography>}
+          primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.title}</Typography>}
           secondary={
             <React.Fragment>
               <Typography
