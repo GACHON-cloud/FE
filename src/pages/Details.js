@@ -19,7 +19,7 @@ const defaultTheme = createTheme();
 
 export default function Details(props) {
 
-  let { id } = useParams(); // URL에서 id 가져오기
+  let { buildingName } = useParams();
   
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -41,11 +41,11 @@ export default function Details(props) {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
            
-             <Swiper/>
+             <Swiper buildingName={buildingName}/>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Orders /> 
+                <Orders buildingName={buildingName} />
                 </Paper>
               </Grid>
             </Grid>
