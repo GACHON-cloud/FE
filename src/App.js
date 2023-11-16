@@ -13,6 +13,7 @@ import Guide from './pages/Guide';
 import SignIn from './pages/SignIn';
 import RealtyList from "./pages/RealtyList"
 import Details from './pages/Details';
+import TestPage from './pages/TestPage';
 
 
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/guide" element={<><Header/><Guide/></>}/>
         <Route path="/realty-list" element={<><Header/><RealtyList/></>}/>
         <Route path='/details' element={<><Header/><Details/></>}/>
+        <Route path='/1' element={<><Header/><TestPage/></>}/>
       </Routes>
       
     </div>
