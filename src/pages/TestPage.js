@@ -16,7 +16,8 @@ function TestPage() {
       });
       const images = response.data;
       if (images && images.length > 0) {
-        setImage(`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${buildingName}/${images[1]}`);
+        const imageUrl = `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${buildingName}/${images[1]}`;
+        setImage(imageUrl);
       } else {
         setImage(null);
       }
@@ -35,7 +36,6 @@ function TestPage() {
       />
       <Button onClick={fetchBuildingImages}>Fetch Image</Button>
       {image && <img src={image} alt="Building" />}
-      <img src="https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/2345561245/1.jpg" alt="" />
     </div>
   );
 }

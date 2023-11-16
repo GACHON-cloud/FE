@@ -183,7 +183,7 @@ const fetchBuildingImages = async (building) => {
   
   return (
     <>
-      <TestPage/>
+      
       <Grid container direction="column" justifyContent="center" alignItems="center">
         <Box sx={{ flexGrow: 1 }}>
           <AppBar elevation={0} style={{ backgroundColor: 'transparent' }} position="static">
