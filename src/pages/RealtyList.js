@@ -63,12 +63,6 @@ export default function RealtyList() {
   const navigate = useNavigate();
  
 
-  //각 행 클릭 시 해당 상세 페이지로 이동
-  const handleDetailsClick = (building) => {
-    navigate(`/details/${building.buildingName}`)
-  }
-
-
   // 컴포넌트 마운트 후 건물 목록 가져오기
   useEffect(() => {
     const fetchData = async () => {
@@ -169,7 +163,7 @@ export default function RealtyList() {
 
           {getCurrentItems().map((building) => (
             <React.Fragment key={building.id}>
-              <ListItem alignItems="center" onClick={handleDetailsClick}>
+              <ListItem alignItems="center" onClick={()=>{navigate(`/details/${building.buildingName}`)}}>
                
                 <ListItemAvatar>
                   <img
