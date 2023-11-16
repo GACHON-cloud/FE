@@ -78,7 +78,9 @@ export default function Main() {
   const handleChatbotClick = () => {
     setShowChat(!showChat); // 챗봇 상태를 반전시킴
   };
-
+  const realtyListNavigate = () => {
+    navigate('/realty-list'); // /realty-list 페이지로 이동
+  };
  
   
   return (
@@ -116,7 +118,7 @@ export default function Main() {
           <GreyItem>
             <img 
             src="/images/button2.png" 
-            onClick={()=>{navigate('/realty-list')}}
+            onClick={realtyListNavigate}
             alt="" />
           </GreyItem>
         </Grid>
