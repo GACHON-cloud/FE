@@ -19,7 +19,7 @@ export default function Swipers({ buildingName }) {
     const fetchData = async () => {
       try {
         
-          const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/search', {
+          const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
             params: {
               folderName: `imgs/${buildingName}/`,
             },
