@@ -65,15 +65,15 @@ export default function Details(props) {
           </TableRow>
           <TableRow>
             <TableCell>보증금</TableCell>
-            <TableCell>{building.warantPrice}</TableCell>
+            <TableCell>{building.warantPrice}만 원</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>매매가</TableCell>
-            <TableCell>{building.dealPrice}</TableCell>
+            <TableCell>{building.dealPrice}만 원</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>월세</TableCell>
-            <TableCell>{building.rentPrice}</TableCell>
+            <TableCell>{building.rentPrice}만 원</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>입주가능일</TableCell>
