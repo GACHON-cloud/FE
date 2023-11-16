@@ -34,8 +34,8 @@ function TestPage() {
       {images.length > 1 && (
         <div>
           <img
-            src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${buildingName}/${images[1]}`}
-            alt={`Building 2`}
+            src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${buildingName}/1.png]}`}
+            alt=""
           />
         </div>
       )}
