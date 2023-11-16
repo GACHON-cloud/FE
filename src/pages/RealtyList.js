@@ -59,43 +59,37 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function RealtyList() {
  
   const [buildingList, setBuildingList] = useState([]); // 건물 목록 상태
-  const [buildingImages, setBuildingImages] = useState({}); // 건물 이미지 URL 상태
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
   const [itemsPerPage] = useState(20); // 페이지 당 아이템 수
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
 
 
-  //컴포넌트 마운트 후 건물 목록 가져오기
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
-        params: {
-          startIndex,
-          endIndex
+    // 컴포넌트 마운트 후 건물 목록 가져오기
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const startIndex = (currentPage - 1) * itemsPerPage;
+          const endIndex = startIndex + itemsPerPage;
+          const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
+            params: {
+              startIndex,
+              endIndex
+            }
+          });
+          setBuildingList(response.data);
+        } catch (error) {
+          console.error(error);
         }
-      });
-      setBuildingList(response.data);
-
-      // 각 건물의 이미지를 불러오기
-      for (const building of response.data) {
-        fetchBuildingImages(building);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  fetchData();
-}, [currentPage, itemsPerPage]);
-
-  //현재 페이지 아이템
-  const getCurrentItems = () => {
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    return buildingList.slice(indexOfFirstItem, indexOfLastItem);
-  };
+      };
+      fetchData();
+    }, [currentPage, itemsPerPage]);
+  
+    // 현재 페이지 아이템
+    const getCurrentItems = () => {
+      const indexOfLastItem = currentPage * itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      return buildingList.slice(indexOfFirstItem, indexOfLastItem);
+    };
    
   //건물 가격 텍스트
   const getPriceText = (building) => {
@@ -146,40 +140,6 @@ useEffect(() => {
   
   
 
-  // 매물 이미지 api call
-const fetchBuildingImages = async (building) => {
-  try {
-    const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
-      params: {
-        folderName: `ing${building.buildingName}/`
-      }
-    });
-    const images = response.data;
-    if (images && images.length > 0) {
-      // 이미지 파일 이름에서 .jpg 제거
-      const imageName = images[0].replace('.jpg', '');
-      setBuildingImages(prevState => ({
-        ...prevState,
-        [building.buildingName]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${imageName}`
-      }));
-    } else {
-      // 이미지가 없을 경우 null로 설정
-      setBuildingImages(prevState => ({
-        ...prevState,
-        [building.buildingName]: null
-      }));
-    }
-  } catch (error) {
-    console.error(error);
-    // 에러 발생 시 null로 설정
-    setBuildingImages(prevState => ({
-      ...prevState,
-      [building.buildingName]: null
-    }));
-  }
-};
-
-
   
   return (
     <>
@@ -212,14 +172,12 @@ const fetchBuildingImages = async (building) => {
   <React.Fragment key={building.id}>
     <ListItem alignItems="center">
     <ListItemAvatar>
-  {buildingImages[building.building_name] && (
     <img
-      src={buildingImages[building.building_name]}
-      width="200px"
-      style={{ margin: '5px' }}
-      alt="Building"
-    />
-  )}
+                  src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`}
+                  width="200px"
+                  style={{ margin: '5px' }}
+                  alt="Building"
+                />
 </ListItemAvatar>
       <div style={{ margin: '30px' }}>
         <ListItemText
