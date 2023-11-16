@@ -169,6 +169,7 @@ export default function RealtyList() {
           {getCurrentItems().map((building) => (
             <React.Fragment key={building.id}>
               <ListItem alignItems="center" onClick={()=> handleDetailsClick(building.id)}>
+                console.log(building.id)
                 <ListItemAvatar>
                   <img
                     src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`}
@@ -180,6 +181,7 @@ export default function RealtyList() {
                 <div style={{ margin: '30px' }}>
                   <ListItemText
                     primary={<Typography variant="h5" style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>{building.title}</Typography>}
+                    
                     secondary={
                       <React.Fragment>
                         <Typography
@@ -191,6 +193,7 @@ export default function RealtyList() {
                         >
                           {getPriceText(building)}
                         </Typography>
+                        console.log({building.id})
                       </React.Fragment>
                     }
                   />
