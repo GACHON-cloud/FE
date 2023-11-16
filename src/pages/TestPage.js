@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 
 function TestPage() {
   const [buildingName, setBuildingName] = useState('');
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
 
   const fetchBuildingImages = async () => {
     try {
@@ -15,17 +15,11 @@ function TestPage() {
         }
       });
 
-      const images = response.data;
-      if (images && images.length > 0) {
-        // 수정된 부분: 이미지 URL 생성 부분
-        const imageUrl = `https://palgongtea.s3.ap-northeast-2.amazonaws.com/${images[1]}`;
-        setImage(imageUrl);
-      } else {
-        setImage(null);
-      }
+      const fetchedImages = response.data;
+      setImages(fetchedImages);
     } catch (error) {
       console.error(error);
-      setImage(null);
+      setImages([]);
     }
   };
 
@@ -36,8 +30,18 @@ function TestPage() {
         value={buildingName}
         onChange={(event) => setBuildingName(event.target.value)}
       />
-      <Button onClick={fetchBuildingImages}>Fetch Image</Button>
-      {image && <img src={image} alt="Building" />}
+      <Button onClick={fetchBuildingImages}>Fetch Images</Button>
+      {images.length > 0 && (
+        <div>
+          {images.slice(1).map((image, index) => (
+            <img
+              key={index}
+              src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${buildingName}/${image}`}
+              alt={`Building ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
