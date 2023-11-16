@@ -160,7 +160,7 @@ const fetchBuildingImages = async (building) => {
       const imageName = images[0].replace('.jpg', '');
       setBuildingImages(prevState => ({
         ...prevState,
-        [building.building_name]: ``
+        [building.building_name]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${imageName}`
       }));
     } else {
       // 이미지가 없을 경우 null로 설정
