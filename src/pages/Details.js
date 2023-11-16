@@ -18,13 +18,8 @@ import { useParams } from "react-router-dom";
 const defaultTheme = createTheme();
 
 export default function Details(props) {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
 
-  
-
+  let { id } = useParams();
   
   
   return (
@@ -51,7 +46,7 @@ export default function Details(props) {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                <Orders id={id} /> 
                 </Paper>
               </Grid>
             </Grid>

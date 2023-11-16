@@ -10,9 +10,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
+
 
 function preventDefault(event) {
   event.preventDefault();
