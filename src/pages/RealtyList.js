@@ -144,19 +144,13 @@ export default function RealtyList() {
         folderName: `imgs/${building.building_name}/`
       }
     });
-    // 서버로부터 받은 response body를 출력
-    console.log(response.data);
-    console.log(response);
-
-    
     const images = response.data;
     if (images && images.length > 0) {
       setBuildingImages(prevState => ({
         ...prevState,
-        [building.building_name]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.building_name}/${images[1]}.jpg`
+        [building.building_name]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.building_name}/${images[0]}`
       }));
     } else {
-      // 이미지가 없을 경우 null로 설정
       setBuildingImages(prevState => ({
         ...prevState,
         [building.building_name]: null
@@ -164,13 +158,13 @@ export default function RealtyList() {
     }
   } catch (error) {
     console.error(error);
-    // 에러 발생 시 null로 설정
     setBuildingImages(prevState => ({
       ...prevState,
       [building.building_name]: null
     }));
   }
 };
+
 
 
   
