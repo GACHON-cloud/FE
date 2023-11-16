@@ -14,7 +14,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Pagination } from '@mui/material';
 import axios from 'axios';
-import TestPage from './test';
+import TestPage from './TestPage';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
