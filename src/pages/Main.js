@@ -67,9 +67,12 @@ const StyledButton = styled(Button)({
 const GreyItem = styled(Item)({
   backgroundColor: '#F0F0F0',
   borderRadius: '20px',
-  boxShadow: '10px 10px 30px rgba(0, 0, 0, 0.2)'
+  boxShadow: '10px 10px 30px rgba(0, 0, 0, 0.2)',
+  transition: 'box-shadow 0.3s ease-in-out',
+  '&:hover': {
+    boxShadow: '15px 15px 40px rgba(0, 0, 0, 0.3)',
+  },
 });
-
 export default function Main() {
   let navigate = useNavigate()
 
