@@ -146,39 +146,38 @@ useEffect(() => {
   
   
   // 매물 이미지 api call
-  const fetchBuildingImages = async (building) => {
-    try {
-      const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
-        params: {
-          // folderName: `imgs/${building.building_name}/` 에서 수정
-          folderName: `${building.building_name}/`
-        }
-      });
-      const images = response.data;
-      if (images && images.length > 0) {
-        // 이미지 파일 이름에서 .jpg 제거
-        const imageName = images[0].replace('.jpg', '');
-        setBuildingImages(prevState => ({
-          ...prevState,
-          [building.building_name]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.building_name}/${imageName}.jpg`
-        }));
-      } else {
-        // 이미지가 없을 경우 null로 설정
-        setBuildingImages(prevState => ({
-          ...prevState,
-          [building.building_name]: null
-        }));
+  // 매물 이미지 api call
+const fetchBuildingImages = async (building) => {
+  try {
+    const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
+      params: {
+        folderName: `${building.building_name}/`
       }
-    } catch (error) {
-      console.error(error);
-      // 에러 발생 시 null로 설정
+    });
+    const images = response.data;
+    if (images && images.length > 0) {
+      // 이미지 파일 이름에서 .jpg 제거
+      const imageName = images[0].replace('.jpg', '');
+      setBuildingImages(prevState => ({
+        ...prevState,
+        [building.building_name]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${imageName}.jpg`
+      }));
+    } else {
+      // 이미지가 없을 경우 null로 설정
       setBuildingImages(prevState => ({
         ...prevState,
         [building.building_name]: null
       }));
     }
-  };
-
+  } catch (error) {
+    console.error(error);
+    // 에러 발생 시 null로 설정
+    setBuildingImages(prevState => ({
+      ...prevState,
+      [building.building_name]: null
+    }));
+  }
+};
 
 
   
