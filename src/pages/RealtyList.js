@@ -62,7 +62,7 @@ export default function RealtyList() {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
   const [itemsPerPage] = useState(20); // 페이지 당 아이템 수
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
-
+  const [buildingImages, setBuildingImages] = useState({}); 
 
   //컴포넌트 마운트 후 건물 목록 가져오기
   useEffect(() => {
@@ -143,7 +143,7 @@ export default function RealtyList() {
   
   return (
     <>
-      <TestPage/>
+
       <Grid container direction="column" justifyContent="center" alignItems="center">
         <Box sx={{ flexGrow: 1 }}>
           <AppBar elevation={0} style={{ backgroundColor: 'transparent' }} position="static">
@@ -171,13 +171,15 @@ export default function RealtyList() {
           {getCurrentItems().map((building) => (
   <React.Fragment key={building.id}>
     <ListItem alignItems="center">
-    <ListItemAvatar>
-    <img
-                  src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`}
-                  width="200px"
-                  style={{ margin: '5px' }}
-                  alt="Building"
-                />
+      <ListItemAvatar>
+        {buildingImages[building.buildingName] ? (
+          <img
+            src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`}
+            width="200px"
+            style={{ margin: '5px' }}
+            alt="Building"
+          />
+        ) : null}
 </ListItemAvatar>
       <div style={{ margin: '30px' }}>
         <ListItemText
