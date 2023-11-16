@@ -146,11 +146,14 @@ export default function RealtyList() {
     });
     const images = response.data;
     if (images && images.length > 0) {
+      // 이미지 파일 이름에서 .jpg 제거
+      const imageName = images[0].replace('.jpg', '');
       setBuildingImages(prevState => ({
         ...prevState,
-        [building.building_name]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.building_name}/${images[0]}`
+        [building.building_name]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.building_name}/${imageName}.jpg`
       }));
     } else {
+      // 이미지가 없을 경우 null로 설정
       setBuildingImages(prevState => ({
         ...prevState,
         [building.building_name]: null
@@ -158,6 +161,7 @@ export default function RealtyList() {
     }
   } catch (error) {
     console.error(error);
+    // 에러 발생 시 null로 설정
     setBuildingImages(prevState => ({
       ...prevState,
       [building.building_name]: null
