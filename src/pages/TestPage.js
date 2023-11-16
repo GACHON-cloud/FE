@@ -35,6 +35,7 @@ function TestPage() {
       />
       <Button onClick={fetchBuildingImages}>Fetch Image</Button>
       {image && <img src={image} alt="Building" />}
+      <img src="https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/2345561245/1.jpg" alt="" />
     </div>
   );
 }
