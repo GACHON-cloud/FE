@@ -12,15 +12,19 @@ import { useParams } from "react-router-dom";
 
 
 
-
-
-
 const defaultTheme = createTheme();
+
 
 export default function Details(props) {
 
   let { buildingName } = useParams();
   
+  //props로 받은 list의 id와 url id 일치하는 요소 반환
+  let find = props.list.find(function (x) {
+    return x.buildingName == buildingName;
+  });
+
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>

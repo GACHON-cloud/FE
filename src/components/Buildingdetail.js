@@ -17,14 +17,12 @@ function preventDefault(event) {
 }
 
 export default function Details(props) {
-  // 현재 URL의 id 파라미터 가져오기
-  let { id } = useParams();
-
-  // props로 받은 list의 id와 url id 일치하는 요소 반환
+  let { buildingName } = useParams();
+  
+  //props로 받은 list의 id와 url id 일치하는 요소 반환
   let find = props.list.find(function (x) {
-    return x.id == id;
+    return x.buildingName == buildingName;
   });
-
   const [building, setBuilding] = React.useState(null);
 
   React.useEffect(() => {
@@ -32,7 +30,7 @@ export default function Details(props) {
       try {
         const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/get', {
           params: {
-            buildingId: id
+            buildingId: buildingName
           }
         });
         setBuilding(response.data);
@@ -41,7 +39,7 @@ export default function Details(props) {
       }
     };
     fetchData();
-  }, [id]);
+  }, [buildingName]);
 
   if (!building) {
     return <div>Loading...</div>;
