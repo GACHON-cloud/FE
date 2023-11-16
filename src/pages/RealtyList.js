@@ -14,8 +14,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Pagination } from '@mui/material';
 import axios from 'axios';
-
-
+import TestPage from './TestPage';
 
 
 //스타일링
@@ -60,31 +59,36 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function RealtyList() {
  
   const [buildingList, setBuildingList] = useState([]); // 건물 목록 상태
+  const [buildingImages, setBuildingImages] = useState({}); // 건물 이미지 URL 상태
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
   const [itemsPerPage] = useState(20); // 페이지 당 아이템 수
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
-  const [buildingImages, setBuildingImages] = useState({});
+
 
   //컴포넌트 마운트 후 건물 목록 가져오기
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
-          params: {
-            startIndex,
-            endIndex
-          }
-        });
-        setBuildingList(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, [currentPage, itemsPerPage]);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
+        params: {
+          startIndex,
+          endIndex
+        }
+      });
+      setBuildingList(response.data);
 
+      // 각 건물의 이미지를 불러오기
+      for (const building of response.data) {
+        fetchBuildingImages(building);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  fetchData();
+}, [currentPage, itemsPerPage]);
 
   //현재 페이지 아이템
   const getCurrentItems = () => {
@@ -139,29 +143,36 @@ export default function RealtyList() {
   };
 
  
-   // 매물 이미지 가져오기
+  
+  
+
+  // 매물 이미지 api call
 const fetchBuildingImages = async (building) => {
   try {
-    const imageUrl = `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`;
-
-    // 이미지 존재 여부 확인
-    const image = new Image();
-    image.src = imageUrl;
-    image.onload = () => {
-      setBuildingImages((prevState) => ({
+    const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
+      params: {
+        folderName: `imgs/${building.buildingName}/`
+      }
+    });
+    const images = response.data;
+    if (images && images.length > 0) {
+      // 이미지 파일 이름에서 .jpg 제거
+      const imageName = images[0].replace('.jpg', '');
+      setBuildingImages(prevState => ({
         ...prevState,
-        [building.buildingName]: imageUrl
+        [building.buildingName]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${imageName}`
       }));
-    };
-    image.onerror = () => {
-      setBuildingImages((prevState) => ({
+    } else {
+      // 이미지가 없을 경우 null로 설정
+      setBuildingImages(prevState => ({
         ...prevState,
         [building.buildingName]: null
       }));
-    };
+    }
   } catch (error) {
     console.error(error);
-    setBuildingImages((prevState) => ({
+    // 에러 발생 시 null로 설정
+    setBuildingImages(prevState => ({
       ...prevState,
       [building.buildingName]: null
     }));
@@ -169,11 +180,10 @@ const fetchBuildingImages = async (building) => {
 };
 
 
-
   
   return (
     <>
-
+      <TestPage/>
       <Grid container direction="column" justifyContent="center" alignItems="center">
         <Box sx={{ flexGrow: 1 }}>
           <AppBar elevation={0} style={{ backgroundColor: 'transparent' }} position="static">
@@ -199,17 +209,17 @@ const fetchBuildingImages = async (building) => {
           <Divider sx={{ margin: '0 0', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
 
           {getCurrentItems().map((building) => (
-      <React.Fragment key={building.id}>
-        <ListItem alignItems="center">
-          <ListItemAvatar>
-          {buildingImages[building.buildingName] && (
-              <img
-                src={buildingImages[building.buildingName]}
-                width="200px"
-                style={{ margin: '5px' }}
-                alt="Building"
-              />
-            )}
+  <React.Fragment key={building.id}>
+    <ListItem alignItems="center">
+    <ListItemAvatar>
+  {buildingImages[building.building_name] && (
+    <img
+      src={buildingImages[building.building_name]}
+      width="200px"
+      style={{ margin: '5px' }}
+      alt="Building"
+    />
+  )}
 </ListItemAvatar>
       <div style={{ margin: '30px' }}>
         <ListItemText
