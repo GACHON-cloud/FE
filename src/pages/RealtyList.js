@@ -173,7 +173,7 @@ export default function RealtyList() {
     <ListItem alignItems="center">
     <ListItemAvatar>
     <img
-                  src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.building_name}/1.jpg`}
+                  src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`}
                   width="200px"
                   style={{ margin: '5px' }}
                   alt="Building"
