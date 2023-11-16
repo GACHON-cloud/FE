@@ -114,7 +114,10 @@ export default function Main() {
         </Grid>
         <Grid xs={6}>
           <GreyItem>
-            <img src="/images/button2.png" alt="" />
+            <img 
+            src="/images/button2.png" 
+            onClick={()=>{navigate('/realty-list')}}
+            alt="" />
           </GreyItem>
         </Grid>
         <Grid xs={6}>
