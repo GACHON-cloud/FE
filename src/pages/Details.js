@@ -24,13 +24,7 @@ export default function Details(props) {
   };
 
   
-  //현재 URL의 id 파라미터 가져오기
-  let { id } = useParams();
 
-  //props로 받은 list의 id와 url id 일치하는 요소 반환
-  let find = props.list.find(function (x) {
-    return x.id == id;
-  });
   
   
   return (
