@@ -14,7 +14,8 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Pagination } from '@mui/material';
 import axios from 'axios';
-import TestPage from './TestPage';
+
+
 
 
 //스타일링
@@ -62,8 +63,6 @@ export default function RealtyList() {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
   const [itemsPerPage] = useState(20); // 페이지 당 아이템 수
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
-  
-  // 건물 이미지 URL 상태
   const [buildingImages, setBuildingImages] = useState({});
 
   //컴포넌트 마운트 후 건물 목록 가져오기
@@ -139,24 +138,16 @@ export default function RealtyList() {
     }
   };
 
- // 매물 이미지 가져오기
  const fetchBuildingImages = async (building) => {
   try {
-    const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
-      params: {
-        folderName: `imgs/${building.buildingName}/`
-      }
-    });
-    const images = response.data;
-    if (images.length > 1) {
+    const imageUrl = `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`;
+
+    // 이미지 존재 여부 확인
+    const response = await axios.get(imageUrl, { responseType: 'blob' });
+    if (response.status === 200) {
       setBuildingImages((prevState) => ({
         ...prevState,
-        [building.buildingName]: images[1]
-      }));
-    } else if (images.length > 0) {
-      setBuildingImages((prevState) => ({
-        ...prevState,
-        [building.buildingName]: images[0]
+        [building.buildingName]: imageUrl
       }));
     } else {
       setBuildingImages((prevState) => ({
@@ -172,13 +163,6 @@ export default function RealtyList() {
     }));
   }
 };
-
-// 이미지 로딩 시도 및 상태 업데이트
-useEffect(() => {
-  getCurrentItems().forEach((building) => {
-    fetchBuildingImages(building);
-  });
-}, [currentPage]);
 
 
   
@@ -210,17 +194,17 @@ useEffect(() => {
           <Divider sx={{ margin: '0 0', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
 
           {getCurrentItems().map((building) => (
-  <React.Fragment key={building.id}>
-    <ListItem alignItems="center">
-      <ListItemAvatar>
-      {buildingImages[building.buildingName] && (
-                  <img
-                    src={buildingImages[building.buildingName]}
-                    width="200px"
-                    style={{ margin: '5px' }}
-                    alt="Building"
-                  />
-                )}
+      <React.Fragment key={building.id}>
+        <ListItem alignItems="center">
+          <ListItemAvatar>
+            {buildingImages[building.buildingName] && (
+              <img
+                src={buildingImages[building.buildingName]}
+                width="200px"
+                style={{ margin: '5px' }}
+                alt="Building"
+              />
+            )}
 </ListItemAvatar>
       <div style={{ margin: '30px' }}>
         <ListItemText
