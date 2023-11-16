@@ -65,7 +65,7 @@ export default function RealtyList() {
 
   //각 행 클릭 시 해당 상세 페이지로 이동
   const handleDetailsClick = (building) => {
-    navigate(`/details/${building.id}`)
+    navigate(`/details/${building.buildingName}`)
   }
 
 
@@ -128,6 +128,7 @@ export default function RealtyList() {
         alert('검색 결과가 없습니다');
       } else {
         console.error(error);
+        
       }
     }
   };
@@ -168,8 +169,8 @@ export default function RealtyList() {
 
           {getCurrentItems().map((building) => (
             <React.Fragment key={building.id}>
-              <ListItem alignItems="center" onClick={()=> handleDetailsClick(building.id)}>
-                console.log(building.id)
+              <ListItem alignItems="center" onClick={()=> handleDetailsClick(building.buildingName)}>
+               
                 <ListItemAvatar>
                   <img
                     src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`}
@@ -193,11 +194,12 @@ export default function RealtyList() {
                         >
                           {getPriceText(building)}
                         </Typography>
-                        console.log({building.id})
+                      
                       </React.Fragment>
                     }
                   />
                 </div>
+                
               </ListItem>
               <Divider sx={{ margin: '0 0', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
               <Divider variant="inset" component="li" />
