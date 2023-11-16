@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
+import axios from 'axios';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -11,19 +12,35 @@ import '../styles/swiper.css';
 // import required modules
 import { Navigation } from 'swiper/modules';
 
-export default function Swipers() {
+export default function Swipers({ buildingName }) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        
+          const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/search', {
+            params: {
+              folderName: `imgs/${buildingName}/`,
+            },
+          });
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [buildingName]);
+
   return (
     <div style={{ width: '70%', margin: '0 auto' }}>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-        <SwiperSlide ><img src="/iamges/button2.png" alt="" /></SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+      {data.map((imageUrl, index) => (
+          <SwiperSlide key={index}>
+            <img src={imageUrl} alt="" />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
