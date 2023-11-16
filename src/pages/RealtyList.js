@@ -16,6 +16,8 @@ import { Pagination } from '@mui/material';
 import axios from 'axios';
 import TestPage from './TestPage';
 
+
+//스타일링
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -55,11 +57,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function RealtyList() {
-  const [buildingList, setBuildingList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(20);
-  const [searchTerm, setSearchTerm] = useState('');
+ 
+  const [buildingList, setBuildingList] = useState([]); // 건물 목록 상태
+  const [buildingImages, setBuildingImages] = useState({}); // 건물 이미지 URL 상태
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
+  const [itemsPerPage] = useState(20); // 페이지 당 아이템 수
+  const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
 
+   //컴포넌트 마운트 후 건물 목록 가져오기
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -78,13 +83,15 @@ export default function RealtyList() {
     };
     fetchData();
   }, [currentPage, itemsPerPage]);
-
+  
+  //현재 페이지 아이템
   const getCurrentItems = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     return buildingList.slice(indexOfFirstItem, indexOfLastItem);
   };
-
+   
+  //건물 가격 텍스트
   const getPriceText = (building) => {
     let priceText = '';
     if (building.transactionType === '월세' || building.transactionType === '단기임대') {
@@ -96,11 +103,14 @@ export default function RealtyList() {
     }
     return `${building.transactionType} ${priceText}`;
   };
+  
 
+  //페이지 변경 핸들러
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
   };
-
+ 
+  //검색 api call
   const search = async () => {
     try {
       const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/search', {
@@ -117,7 +127,8 @@ export default function RealtyList() {
       }
     }
   };
-
+  
+  //검색 입력 (엔터) 핸들러
   const handleSearchKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -125,8 +136,8 @@ export default function RealtyList() {
     }
   };
 
- // 매물 이미지 미리보기 한장 출력
-const fetchBuildingImages = async (building) => {
+ // 매물 이미지 api call
+ const fetchBuildingImages = async (building) => {
   try {
     const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
       params: {
@@ -135,23 +146,33 @@ const fetchBuildingImages = async (building) => {
     });
     const images = response.data;
     if (images && images.length > 0) {
-      return `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.building_name}/${images[1]}.jpg`;
+      setBuildingImages(prevState => ({
+        ...prevState,
+        [building.building_name]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.building_name}/${images[1]}.jpg`
+      }));
     } else {
-      return null;
+      // 이미지가 없을 경우 null로 설정
+      setBuildingImages(prevState => ({
+        ...prevState,
+        [building.building_name]: null
+      }));
     }
   } catch (error) {
     console.error(error);
-    return null;
+    // 에러 발생 시 null로 설정
+    setBuildingImages(prevState => ({
+      ...prevState,
+      [building.building_name]: null
+    }));
   }
 };
-
 
 
 
   
   return (
     <>
-     <TestPage/>
+     
       <Grid container direction="column" justifyContent="center" alignItems="center">
         <Box sx={{ flexGrow: 1 }}>
           <AppBar elevation={0} style={{ backgroundColor: 'transparent' }} position="static">
@@ -180,14 +201,14 @@ const fetchBuildingImages = async (building) => {
   <React.Fragment key={building.id}>
     <ListItem alignItems="center">
     <ListItemAvatar>
-    {building && (
-  <img
-    src={fetchBuildingImages(building)}
-    width="200px"
-    style={{ margin: '5px' }}
-    alt="Building"
-  />
-)}
+  {buildingImages[building.building_name] && (
+    <img
+      src={buildingImages[building.building_name]}
+      width="200px"
+      style={{ margin: '5px' }}
+      alt="Building"
+    />
+  )}
 </ListItemAvatar>
       <div style={{ margin: '30px' }}>
         <ListItemText
