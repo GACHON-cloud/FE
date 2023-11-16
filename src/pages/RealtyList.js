@@ -169,7 +169,7 @@ export default function RealtyList() {
 
           {getCurrentItems().map((building) => (
             <React.Fragment key={building.id}>
-              <ListItem alignItems="center" onClick={()=> handleDetailsClick(building.buildingName)}>
+              <ListItem alignItems="center" onClick={handleDetailsClick}>
                
                 <ListItemAvatar>
                   <img
