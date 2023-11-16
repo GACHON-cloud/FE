@@ -126,7 +126,7 @@ export default function RealtyList() {
   };
 
  // 매물 이미지 미리보기 한장 출력
- const fetchBuildingImages = async (building) => {
+const fetchBuildingImages = async (building) => {
   try {
     const response = await axios.get('http://ceprj.gachon.ac.kr:60014/file/getFolderList', {
       params: {
@@ -135,7 +135,7 @@ export default function RealtyList() {
     });
     const images = response.data;
     if (images && images.length > 0) {
-      return images[1]; // 첫 번째 이미지를 반환
+      return `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.building_name}/${images[1]}.jpg`;
     } else {
       return null;
     }
@@ -180,14 +180,14 @@ export default function RealtyList() {
   <React.Fragment key={building.id}>
     <ListItem alignItems="center">
     <ListItemAvatar>
-  {building && (
-    <img
-      src={`http://ceprj.gachon.ac.kr:60014/img/${building.building_name}/${fetchBuildingImages(building)}`}
-      width="200px"
-      style={{ margin: '5px' }}
-      alt="Building"
-    />
-  )}
+    {building && (
+  <img
+    src={fetchBuildingImages(building)}
+    width="200px"
+    style={{ margin: '5px' }}
+    alt="Building"
+  />
+)}
 </ListItemAvatar>
       <div style={{ margin: '30px' }}>
         <ListItemText
