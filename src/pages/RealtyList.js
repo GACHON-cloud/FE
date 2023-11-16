@@ -147,8 +147,13 @@ export default function RealtyList() {
         folderName: `imgs/${building.buildingName}/`
       }
     });
-    const images = response.data.filter((image) => !image.includes('.DS_Store'));
-    if (images.length > 0) {
+    const images = response.data;
+    if (images.length > 1) {
+      setBuildingImages((prevState) => ({
+        ...prevState,
+        [building.buildingName]: images[1]
+      }));
+    } else if (images.length > 0) {
       setBuildingImages((prevState) => ({
         ...prevState,
         [building.buildingName]: images[0]
