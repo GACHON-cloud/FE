@@ -16,7 +16,7 @@ function TestPage() {
       });
       const images = response.data;
       if (images && images.length > 0) {
-        setImage(`http://ceprj.gachon.ac.kr:60014/imgs/${buildingName}/${images[1]}`);
+        setImage(`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${buildingName}/${images[1]}.jpg`);
       } else {
         setImage(null);
       }
