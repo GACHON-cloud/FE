@@ -39,7 +39,7 @@ function App() {
         <Route path="/chatbot" element={<MyChatbot/>}/>
         <Route path="/guide" element={<><Header/><Guide/></>}/>
         <Route path="/realty-list" element={<><Header/><RealtyList/></>}/>
-        <Route path='/details/' element={<><Header/><Details/></>}/>
+        <Route path='/details/:buildingName' element={<><Header/><Details/></>}/>
         <Route path='/1' element={<><Header/><TestPage/></>}/>
       </Routes>
       

@@ -163,7 +163,7 @@ export default function RealtyList() {
 
           {getCurrentItems().map((building) => (
             <React.Fragment key={building.id}>
-              <ListItem alignItems="center" onClick={()=>{navigate(`/details/${building.buildingName}`)}}>
+              <ListItem alignItems="center" onClick={()=>{navigate(`/details/${encodeURIComponent(building.buildingName)}`)}}>
                
                 <ListItemAvatar>
                   <img
