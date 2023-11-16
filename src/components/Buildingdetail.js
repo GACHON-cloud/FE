@@ -6,88 +6,120 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
   return { id, date, name, shipTo, paymentMethod, amount };
 }
 
-
 function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Details() {
-  return (
-    <React.Fragment>
-    <Title>상세 정보</Title>
-    <Table size="small">
-      <TableBody>
-        <TableRow>
-          <TableCell>주소</TableCell>
-          <TableCell>데이터1</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>내용</TableCell>
-          <TableCell>데이터2</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>층</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>보증금</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>매매가</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>월세</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>입주가능일</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>복층 여부</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>방향</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>주차 가능 대수</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>부동산명</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>부동산 전화번호</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>빌딩 필드</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>건물명</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>방 개수</TableCell>
-          <TableCell>데이터3</TableCell>
-        </TableRow>
+export default function Details(props) {
+  // 현재 URL의 id 파라미터 가져오기
+  let { id } = useParams();
 
-        
-      </TableBody>
-    </Table>
-   
-  </React.Fragment>
+  // props로 받은 list의 id와 url id 일치하는 요소 반환
+  let find = props.list.find(function (x) {
+    return x.id == id;
+  });
+
+  const [building, setBuilding] = React.useState(null);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/get', {
+          params: {
+            buildingId: id
+          }
+        });
+        setBuilding(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  if (!building) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <>
+      <Title>상세 정보</Title>
+      <Table size="small">
+        <TableBody>
+          <TableRow>
+            <TableCell>매물명</TableCell>
+            <TableCell>{building.title}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>주소</TableCell>
+            <TableCell>{building.address}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>매물 특징</TableCell>
+            <TableCell>{building.content}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>층</TableCell>
+            <TableCell>{building.floor}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>보증금</TableCell>
+            <TableCell>{building.warantPrice}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>매매가</TableCell>
+            <TableCell>{building.dealPrice}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>월세</TableCell>
+            <TableCell>{building.rentPrice}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>입주가능일</TableCell>
+            <TableCell>{building.moveInDate}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>복층 여부</TableCell>
+            <TableCell>{building.checkDuplex}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>방향</TableCell>
+            <TableCell>{building.direction}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>총 주차 가능 대수</TableCell>
+            <TableCell>{building.numberOfParking}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>부동산명</TableCell>
+            <TableCell>{building.realterName}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>부동산 전화번호</TableCell>
+            <TableCell>{building.realterNumber}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>매물 종류</TableCell>
+            <TableCell>{building.buildingField}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>방 개수</TableCell>
+            <TableCell>{building.numberOfRoom}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>거래 유형</TableCell>
+            <TableCell>{building.transactionType}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </>
   );
 }

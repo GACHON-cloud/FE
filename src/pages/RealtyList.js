@@ -14,6 +14,8 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Pagination } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 
 //스타일링
@@ -61,6 +63,7 @@ export default function RealtyList() {
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
   const [itemsPerPage] = useState(20); // 페이지 당 아이템 수
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
+  const navigate = useNavigate();
 
 
     // 컴포넌트 마운트 후 건물 목록 가져오기
@@ -169,7 +172,7 @@ export default function RealtyList() {
 
           {getCurrentItems().map((building) => (
   <React.Fragment key={building.id}>
-    <ListItem alignItems="center">
+    <ListItem alignItems="center" onClick={() => navigate(`/detail/${building.id}`)}>
     <ListItemAvatar>
     <img
                   src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`}
