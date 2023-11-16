@@ -145,7 +145,7 @@ useEffect(() => {
  
   
   
-  // 매물 이미지 api call
+
   // 매물 이미지 api call
 const fetchBuildingImages = async (building) => {
   try {
@@ -160,7 +160,7 @@ const fetchBuildingImages = async (building) => {
       const imageName = images[0].replace('.jpg', '');
       setBuildingImages(prevState => ({
         ...prevState,
-        [building.building_name]: `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${imageName}.jpg`
+        [building.building_name]: ``
       }));
     } else {
       // 이미지가 없을 경우 null로 설정
