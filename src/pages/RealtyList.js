@@ -138,23 +138,27 @@ export default function RealtyList() {
     }
   };
 
- const fetchBuildingImages = async (building) => {
+ 
+   // 매물 이미지 가져오기
+const fetchBuildingImages = async (building) => {
   try {
     const imageUrl = `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`;
 
     // 이미지 존재 여부 확인
-    const response = await axios.get(imageUrl, { responseType: 'blob' });
-    if (response.status === 200) {
+    const image = new Image();
+    image.src = imageUrl;
+    image.onload = () => {
       setBuildingImages((prevState) => ({
         ...prevState,
         [building.buildingName]: imageUrl
       }));
-    } else {
+    };
+    image.onerror = () => {
       setBuildingImages((prevState) => ({
         ...prevState,
         [building.buildingName]: null
       }));
-    }
+    };
   } catch (error) {
     console.error(error);
     setBuildingImages((prevState) => ({
@@ -163,6 +167,7 @@ export default function RealtyList() {
     }));
   }
 };
+
 
 
   
@@ -197,7 +202,7 @@ export default function RealtyList() {
       <React.Fragment key={building.id}>
         <ListItem alignItems="center">
           <ListItemAvatar>
-            {buildingImages[building.buildingName] && (
+          {buildingImages[building.buildingName] && (
               <img
                 src={buildingImages[building.buildingName]}
                 width="200px"
