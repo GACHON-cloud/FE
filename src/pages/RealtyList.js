@@ -144,6 +144,9 @@ export default function RealtyList() {
         folderName: `imgs/${building.building_name}/`
       }
     });
+    // 서버로부터 받은 response body를 출력
+    console.log(response.data);
+    
     const images = response.data;
     if (images && images.length > 0) {
       setBuildingImages(prevState => ({
@@ -166,7 +169,6 @@ export default function RealtyList() {
     }));
   }
 };
-
 
 
   
