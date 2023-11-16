@@ -27,7 +27,7 @@ export default function Details(props) {
       try {
         const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/get', {
           params: {
-            buildingId: buildingName
+            buildingName: buildingName
           }
         });
         setBuilding(response.data);
