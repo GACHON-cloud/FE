@@ -146,6 +146,8 @@ export default function RealtyList() {
     });
     // 서버로부터 받은 response body를 출력
     console.log(response.data);
+    console.log(response);
+
     
     const images = response.data;
     if (images && images.length > 0) {
