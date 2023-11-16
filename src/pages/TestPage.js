@@ -31,15 +31,12 @@ function TestPage() {
         onChange={(event) => setBuildingName(event.target.value)}
       />
       <Button onClick={fetchBuildingImages}>Fetch Images</Button>
-      {images.length > 0 && (
+      {images.length > 1 && (
         <div>
-          {images.slice(1).map((image, index) => (
-            <img
-              key={index}
-              src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${buildingName}/${image}`}
-              alt={`Building ${index + 1}`}
-            />
-          ))}
+          <img
+            src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${buildingName}/${images[1]}`}
+            alt={`Building 2`}
+          />
         </div>
       )}
     </div>
