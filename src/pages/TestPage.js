@@ -14,9 +14,11 @@ function TestPage() {
           folderName: `imgs/${buildingName}/`
         }
       });
+
       const images = response.data;
       if (images && images.length > 0) {
-        const imageUrl = `https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${buildingName}/${images[1]}`;
+        // 수정된 부분: 이미지 URL 생성 부분
+        const imageUrl = `https://palgongtea.s3.ap-northeast-2.amazonaws.com/${images[0]}`;
         setImage(imageUrl);
       } else {
         setImage(null);
@@ -32,7 +34,7 @@ function TestPage() {
       <TextField
         label="Building Name"
         value={buildingName}
-        onChange={event => setBuildingName(event.target.value)}
+        onChange={(event) => setBuildingName(event.target.value)}
       />
       <Button onClick={fetchBuildingImages}>Fetch Image</Button>
       {image && <img src={image} alt="Building" />}
