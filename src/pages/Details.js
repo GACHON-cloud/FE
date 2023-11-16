@@ -19,8 +19,7 @@ const defaultTheme = createTheme();
 
 export default function Details(props) {
 
-  let { id } = useParams();
-  
+  let { id } = useParams(); // URL에서 id 가져오기
   
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -46,7 +45,7 @@ export default function Details(props) {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Orders id={id} /> 
+                <Orders /> 
                 </Paper>
               </Grid>
             </Grid>

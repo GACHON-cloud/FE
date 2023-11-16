@@ -61,6 +61,13 @@ export default function RealtyList() {
   const [itemsPerPage] = useState(20); // 페이지 당 아이템 수
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
   const navigate = useNavigate();
+ 
+
+  //각 행 클릭 시 해당 상세 페이지로 이동
+  const handleDetailsClick = (building) => {
+    navigate(`/details/${building.id}`)
+  }
+
 
   // 컴포넌트 마운트 후 건물 목록 가져오기
   useEffect(() => {
@@ -161,7 +168,7 @@ export default function RealtyList() {
 
           {getCurrentItems().map((building) => (
             <React.Fragment key={building.id}>
-              <ListItem alignItems="center" onClick={() => navigate(`/details/${building.id}`)}>
+              <ListItem alignItems="center" onClick={()=> handleDetailsClick(building.id)}>
                 <ListItemAvatar>
                   <img
                     src={`https://palgongtea.s3.ap-northeast-2.amazonaws.com/imgs/${building.buildingName}/1.jpg`}
