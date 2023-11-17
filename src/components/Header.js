@@ -36,13 +36,9 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar sx={{ height: 80, margin: '0 50px 0 30px' }}>
-          <img onClick={() => navigate('/main')}
-            style={{ width: 50, height: 50 }}
-            src="/images/logo.png"
-            alt="Logo"
-          />
+          
           <Typography onClick={() => navigate('/main')} variant="h6" component="div" sx={{ ml: 2, fontSize: '2rem' }}>
-            HomeMate
+            With 챗봇
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           
@@ -51,7 +47,7 @@ export default function Header() {
         ) : (
           <Typography sx={{ fontSize: '1.2rem' }} color="inherit" onClick={() => navigate('/')}>Login</Typography>
         )}
-         <Typography  onClick={() => navigate('/mypage')} sx={{ fontSize: '1.2rem', marginLeft:'15px', borderLeft: '1px solid white', paddingLeft: '10px'}} color="inherit">My Page</Typography >
+        
         </Toolbar>
       </AppBar>
     </Box>

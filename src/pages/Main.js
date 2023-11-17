@@ -7,12 +7,11 @@ import Grid from '@mui/material/Unstable_Grid2';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Chatbot from './Chatbot';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+
 
 
 const Container = styled('Box')({
   width: 1280,
-  height: 832,
   position: 'relative',
   background: 'white',
   margin: '280px',
@@ -28,7 +27,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   boxShadow: 'none',
   width: '100%',
-  height: 'auto',
+  height: '900px',
   backgroundSize: 'cover',
   position: 'relative',
 }));
@@ -64,15 +63,7 @@ const StyledButton = styled(Button)({
   boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.7)',
 });
 
-const GreyItem = styled(Item)({
-  backgroundColor: '#F0F0F0',
-  borderRadius: '20px',
-  boxShadow: '10px 10px 30px rgba(0, 0, 0, 0.2)',
-  transition: 'box-shadow 0.3s ease-in-out',
-  '&:hover': {
-    boxShadow: '15px 15px 40px rgba(0, 0, 0, 0.3)',
-  },
-});
+
 export default function Main() {
   let navigate = useNavigate()
 
@@ -81,10 +72,7 @@ export default function Main() {
   const handleChatbotClick = () => {
     setShowChat(!showChat); // 챗봇 상태를 반전시킴
   };
-  const realtyListNavigate = () => {
-    navigate('/realty-list'); // /realty-list 페이지로 이동
-  };
- 
+
   
   return (
     <Container>
@@ -92,11 +80,11 @@ export default function Main() {
       <Grid container spacing={4}>
         <Grid xs={12}>
           <Item>
-            <img src="/images/button1.png" alt="" />
-            <Box sx={{ display: 'flex', justifyContent: 'center', position: 'absolute', bottom: '25px', width: '100%' }}>
+            <img src="/images/button.png" alt="" />
+            <Box sx={{ display: 'flex', justifyContent: 'center', position: 'absolute', bottom: '300px', width: '100%' }}>
               <Buttons orientation="vertical">
                 <StyledButton onClick={()=>{navigate('/guide')}} variant="contained">Guide</StyledButton>
-                <StyledButton onClick={handleChatbotClick} variant="contained">챗봇과 함께 우리집 찾기</StyledButton>
+                <StyledButton onClick={handleChatbotClick} variant="contained">챗봇</StyledButton>
               </Buttons>
             </Box>
   
@@ -117,19 +105,7 @@ export default function Main() {
               )}
           </Item>
         </Grid>
-        <Grid xs={6}>
-          <GreyItem>
-            <img 
-            src="/images/button2.png" 
-            onClick={realtyListNavigate}
-            alt="" />
-          </GreyItem>
-        </Grid>
-        <Grid xs={6}>
-          <GreyItem>
-            <img src="/images/button3.png" alt="" />
-          </GreyItem>
-        </Grid>
+      
       </Grid>
     </Box>
   </Container>

@@ -11,6 +11,26 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
     }));
   };
 
+  const handleKorean = () => {
+    const botMessage = createChatBotMessage('반가워요!');
+
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, botMessage],
+    }));
+  };
+
+  const handleClock = () => {
+    const currentDate = new Date();
+    const currentTime = currentDate.toLocaleTimeString();
+  
+    const botMessage = createChatBotMessage(`현재 시간은 ${currentTime}입니다.`);
+  
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, botMessage],
+    }));
+  };
 
   return (
     <div>
@@ -18,6 +38,8 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
         return React.cloneElement(child, {
           actions: {
             handleHello,
+            handleKorean,
+            handleClock,
           },
         });
       })}

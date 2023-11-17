@@ -2,7 +2,6 @@ import React,{useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -13,17 +12,6 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/userSlice';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="http://homemate.shop">
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 
 
@@ -78,7 +66,7 @@ useEffect(() => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            With 챗봇 로그인
           </Typography>
          
             로그인 되었습니다.<br/><br/>
@@ -95,7 +83,7 @@ useEffect(() => {
             
           </Box>
         
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+       
       </Container>
     </ThemeProvider>
   );

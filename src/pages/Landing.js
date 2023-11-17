@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Grid, Box, Stack } from "@mui/material"
+import Button from '@mui/material/Button';
 
 
 const Container= styled('Box')({
@@ -25,6 +26,14 @@ const BoldText = styled('h1')({
   margin: "150px 0 50px",
 });
 
+const BText = styled('h1')({
+    fontWeight: 'bold',
+    fontSize: '25px',
+    justifyContent: 'center',
+    alignItems: 'center',
+   
+  });
+
 export default function Landing() {
    
     return (
@@ -37,7 +46,7 @@ export default function Landing() {
                 <Grid item xs={7}>
                     <Stack spacing={10}>
                         <Grid container direction="column">
-                            <BoldText>Welcome!</BoldText>
+                            <BoldText>With 챗봇</BoldText>
                         </Grid>
                         <div style={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap:"10px" }}>
                        
@@ -51,9 +60,10 @@ export default function Landing() {
                             alt=""
 />
                         </div>
-                        <div style={{ color:'#888' }}>사용 중이신 SNS로 간편하게 로그인하세요!</div>
-                        <div onClick={() => window.location.href = 'http://localhost:8080/admin/form'} style={{ textDecorationLine:'underline', fontWeight:'bold' }}>Admin</div> 
-                            
+                        <div style={{ color:'#888' }}>로그인 후 사용 가능합니다.</div>
+                        
+                        <Button onClick={() => window.location.href = 'http://localhost:8080/admin/form'}>
+                            <BText>Admin</BText></Button>
 
 
 

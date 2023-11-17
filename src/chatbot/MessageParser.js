@@ -5,6 +5,12 @@ const MessageParser = ({ children, actions }) => {
     if (message.includes('hello')) {
       actions.handleHello();
     }
+    else if (message.includes('안녕')) {
+      actions.handleKorean();
+    }
+    else if (message.includes('시')){
+      actions.handleClock();
+    }
   };
 
   return (

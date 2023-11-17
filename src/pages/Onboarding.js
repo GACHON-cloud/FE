@@ -118,13 +118,9 @@ export default function Onboarding() {
     <Container className={classes.container}>
       <Grid container direction="column" spacing={12}>
         <Grid item className={classes.titleContainer}>
-          <img
-            style={{ width: 111, height: 107 }}
-            src="/images/logo.png"
-            alt="Logo"
-          />
+          
           <Typography style={{ fontSize: 30 }} className={classes.title}>
-            <span style={{ fontWeight: "bold" }}> HomeMate</span><span style={{ color: "black" }}>에서 사용할 <br /> 닉네임을 입력해주세요!</span>
+            <span style={{ color: "black" }}>With 챗봇에서 사용할 닉네임을 입력해주세요!</span>
             
           </Typography>
         </Grid>
