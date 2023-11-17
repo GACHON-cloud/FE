@@ -88,7 +88,7 @@ export default function Onboarding() {
     try {
       const response = await axios({
         method: 'post', 
-        url: 'http://ceprj.gachon.ac.kr:60014/user/sign-up',
+        url: 'http://localhost:8080/user/sign-up',
         headers: { Authorization: `Bearer ${accessToken}` }, 
         data: { nickName }, 
       });

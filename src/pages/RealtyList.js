@@ -69,7 +69,7 @@ export default function RealtyList() {
       try {
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/getAll', {
+        const response = await axios.get('http://localhost:8080/building/getAll', {
           params: {
             startIndex,
             endIndex,
@@ -111,7 +111,7 @@ export default function RealtyList() {
   // 검색 api call
   const search = async () => {
     try {
-      const response = await axios.get('http://ceprj.gachon.ac.kr:60014/building/search', {
+      const response = await axios.get('http://localhost:8080/building/search', {
         params: {
           keyword: searchTerm,
         },

@@ -40,15 +40,10 @@ export default function Landing() {
                             <BoldText>Welcome!</BoldText>
                         </Grid>
                         <div style={{ display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', gap:"10px" }}>
-                        <img
-                            onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60014/oauth2/authorization/naver'}
-                            width="250px"
-                            src="/images/naver_login.png"
-                            alt=""
-                            />
+                       
                             <img
                             onClick={() => {
-                                window.location.href = 'http://ceprj.gachon.ac.kr:60014/oauth2/authorization/kakao';
+                                window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
                                 
                             }}
                             width="250px"
@@ -57,7 +52,7 @@ export default function Landing() {
 />
                         </div>
                         <div style={{ color:'#888' }}>사용 중이신 SNS로 간편하게 로그인하세요!</div>
-                        <div onClick={() => window.location.href = 'http://ceprj.gachon.ac.kr:60014/admin/form'} style={{ textDecorationLine:'underline', fontWeight:'bold' }}>Admin</div> 
+                        <div onClick={() => window.location.href = 'http://localhost:8080/admin/form'} style={{ textDecorationLine:'underline', fontWeight:'bold' }}>Admin</div> 
                             
 
 
