@@ -179,6 +179,7 @@ export default function RealtyList() {
                     
                     secondary={
                       <React.Fragment>
+                        <Typography>{building.address}</Typography>
                         <Typography
                           sx={{ display: 'inline' }}
                           component="span"
